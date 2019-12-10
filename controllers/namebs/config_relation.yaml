@@ -1,0 +1,18 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+
+
+
+blocs:
+    label: waka.publisher::lang.bloc.name
+    manage:
+        form: $/waka/publisher/models/bloc/fields_rel_bloc.yaml
+        list: $/waka/publisher/models/bloc/columns.yaml
+    view:
+        list: $/waka/publisher/models/bloc/columns.yaml
+        toolbarButtons: create|update|link|unlink
+
+
+

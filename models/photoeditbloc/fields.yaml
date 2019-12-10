@@ -1,0 +1,10 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: waka.publisher::lang.photo_edit_bloc.name
+    slug:
+        label: waka.utils::lang.global.slug
+        preset: name

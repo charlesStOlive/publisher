@@ -1,0 +1,16 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    _name:
+        label: waka.publisher::lang.bloc_name.name
+    blocs@create:
+        type: partial
+        path: field_blocs
+    # slug:
+    #     label: waka.utils::lang.global.slug
+    #     preset: _name
+    # bloc_type:
+    #     label: waka.publisher::lang.bloc.bloc_type
+    #     type: relation

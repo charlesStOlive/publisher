@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Document
+
+# Model Form Field configuration
+form: $/waka/publisher/models/document/fields.yaml
+
+# Model Class name
+modelClass: Waka\Publisher\Models\Document
+
+# Default redirect location
+defaultRedirect: waka/publisher/documents
+
+# Create page
+create:
+    title: Create Document
+    redirect: waka/publisher/documents/update/:id
+    redirectClose: waka/publisher/documents
+
+# Update page
+update:
+    title: Edit Document
+    redirect: waka/publisher/documents
+    redirectClose: waka/publisher/documents
+
+# Preview page
+preview:
+    title: Preview Document

@@ -1,0 +1,13 @@
+1.0.1: 
+  - 'First version of crsm'
+  - create_bloc_types_table.php
+  - create_blocs_table.php
+  - create_documents_blocs_table.php
+  - create_documents_table.php
+  - create_namebs_table.php
+  - create_photo_edit_blocs_table.php
+  - create_text_blocs_table.php
+  - create_textebs_table.php
+  - create_typebs_table.php
+  - create_videovs_table.php
+  - 

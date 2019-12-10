@@ -1,0 +1,18 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    _name:
+        label: waka.publisher::lang.bloc.name
+        comment: waka.publisher::lang.bloc.name_ex
+    slug:
+        label: waka.utils::lang.global.slug
+        preset: _name
+    bloc_name:
+        label: waka.publisher::lang.bloc.bloc_name
+        type: relation
+        comment: waka.publisher::lang.bloc.name_ex
+    bloc_type:
+        label: waka.publisher::lang.bloc.bloc_type
+        type: relation
