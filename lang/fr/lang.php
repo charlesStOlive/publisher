@@ -11,7 +11,7 @@ return [
         'name_ex' => 'UNiquement utilisé dans le BO',
         'bloc_name' => 'Nom',
         'bloc_name_ex' => 'Liaison avec le document',
-        'bloc_type' => 'Strate',
+        'bloc_type' => 'Type de contenu',
     ],
     'bloc_name' => [
         'name' => 'Intitulé',
@@ -19,6 +19,6 @@ return [
         'bloc' => 'Bloc contenu de références',
         'bloc_name' => 'Nom',
         'bloc_name_ex' => 'Liaison avec le document',
-        'bloc_type' => 'Strate',
+        'bloc_type' => 'Type de contenu',
     ],
 ];

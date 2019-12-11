@@ -9,6 +9,3 @@ fields:
     slug:
         label: waka.utils::lang.global.slug
         preset: name
-    # bloctype:
-    #     label: waka.publisher::lang.bloc.bloc_type
-    #     type: relation

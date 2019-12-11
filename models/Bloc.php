@@ -8,9 +8,9 @@ use Model;
 class Bloc extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-            use \October\Rain\Database\Traits\SoftDelete;
-            use \October\Rain\Database\Traits\Sortable;
-    
+    use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Sortable;
+
     /**
      * @var string The database table used by the model.
      */
@@ -30,7 +30,7 @@ class Bloc extends Model
      * @var array Validation rules for attributes
      */
     public $rules = [
-        'slug'                  => 'required|unique:waka_publisher_bloc',
+        'slug' => 'required|unique:waka_publisher_blocs',
     ];
 
     /**
@@ -60,7 +60,7 @@ class Bloc extends Model
         'created_at',
         'updated_at',
         'deleted_at',
-            ];
+    ];
 
     /**
      * @var array Relations
@@ -68,15 +68,19 @@ class Bloc extends Model
     public $hasOne = [];
     public $hasMany = [];
     public $belongsTo = [
-        'blocname' => ['Waka\Publisher\Models\BlocName'],
-        'bloctype' => ['Waka\Publisher\Models\BlocType']
+        'bloc_name' => ['Waka\Publisher\Models\BlocName'],
+        'bloc_type' => ['Waka\Publisher\Models\BlocType'],
     ];
     public $belongsToMany = [];
     public $morphTo = [
-        'data' => []
+        'data' => [],
     ];
     public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    /**
+     * GET
+     */
 }

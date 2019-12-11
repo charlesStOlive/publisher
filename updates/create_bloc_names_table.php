@@ -12,7 +12,8 @@ class CreateBlocNamesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('slug');
-            $table->integer('bloc_type_id')->unsigned();          
+            $table->string('name');
+            $table->integer('bloc_type_id')->unsigned()->nullable();          
             $table->integer('sort_order')->default(0);
                  
             $table->softDeletes();

@@ -8,3 +8,5 @@ fields:
     slug:
         label: waka.utils::lang.global.slug
         preset: name
+    model:
+        label: waka.utils::lang.bloc_type.model

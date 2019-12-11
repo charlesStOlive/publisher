@@ -12,6 +12,7 @@ fields:
     bloc_name:
         label: waka.publisher::lang.bloc.bloc_name
         type: relation
+        select: slug
         comment: waka.publisher::lang.bloc.name_ex
     bloc_type:
         label: waka.publisher::lang.bloc.bloc_type

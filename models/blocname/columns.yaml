@@ -8,9 +8,9 @@ columns:
         label: waka.utils::lang.global.sort_order
         invisible: true
     
-    name:
-        label: waka.publisher::lang.bloc_name.name
-        searchable: true
+    # name:
+    #     label: waka.publisher::lang.bloc_name.name
+    #     searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense

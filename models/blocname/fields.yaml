@@ -3,14 +3,18 @@
 # ===================================
 
 fields:
-    _name:
+    name:
         label: waka.publisher::lang.bloc_name.name
-    blocs@create:
+    slug:
+        label: waka.utils::lang.global.slug
+        preset: name
+    blocs@update:
         type: partial
         path: field_blocs
-    # slug:
-    #     label: waka.utils::lang.global.slug
-    #     preset: _name
-    # bloc_type:
-    #     label: waka.publisher::lang.bloc.bloc_type
-    #     type: relation
+    bloc_type@create:
+        label: waka.publisher::lang.bloc.bloc_type
+        type: relation
+    bloc_type@update:
+        label: waka.publisher::lang.bloc.bloc_type
+        type: 
+        readOnly: true

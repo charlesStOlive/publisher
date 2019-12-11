@@ -12,7 +12,6 @@ blocs:
         list: $/waka/publisher/models/bloc/columns.yaml
     view:
         list: $/waka/publisher/models/bloc/columns.yaml
-        toolbarButtons: create|update|link|unlink
 
 
 

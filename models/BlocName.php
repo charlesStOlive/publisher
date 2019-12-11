@@ -65,10 +65,10 @@ class BlocName extends Model
      */
     public $hasOne = [];
     public $hasMany = [
-         'blocs' => ['Waka\Publisher\Models\Bloc', 'otherKey' => 'blocname_id'],
+         'blocs' => ['Waka\Publisher\Models\Bloc'],
     ];
     public $belongsTo = [
-        // 'blocType' => ['Waka\Publisher\Models\BlocType']
+        'bloc_type' => ['Waka\Publisher\Models\BlocType']
     ];
     public $belongsToMany = [];
     public $morphTo = [];
@@ -76,4 +76,8 @@ class BlocName extends Model
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    /**
+     * 
+     */
 }
