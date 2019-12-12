@@ -5,7 +5,7 @@
 columns:
     
     name:
-        label: waka.publisher::lang.videobloc.name
+        label: waka.publisher::lang.blocphoto.name
         searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at

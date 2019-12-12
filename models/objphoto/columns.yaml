@@ -5,7 +5,7 @@
 columns:
     
     name:
-        label: waka.publisher::lang.photo_edit_bloc.name
+        label: waka.publisher::lang.objphoto.name
         searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at

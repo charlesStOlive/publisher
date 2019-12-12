@@ -4,7 +4,7 @@
 
 fields:
     name:
-        label: waka.publisher::lang.photo_edit_bloc.name
+        label: waka.publisher::lang.elementstext.name
     slug:
         label: waka.utils::lang.global.slug
         preset: name

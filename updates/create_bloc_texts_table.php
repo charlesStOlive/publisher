@@ -4,20 +4,15 @@ use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class CreatePhotoEditBlocsTable extends Migration
+class CreateBlocTextsTable extends Migration
 {
     public function up()
     {
-        Schema::create('waka_publisher_photo_edit_blocs', function (Blueprint $table) {
+        Schema::create('waka_publisher_bloc_texts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
-            
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->integer('nest_left')->unsigned()->nullable();
-            $table->integer('nest_right')->unsigned()->nullable();
-            $table->integer('nest_depth')->unsigned()->nullable();
                                                 
             $table->softDeletes();
                         
@@ -27,6 +22,6 @@ class CreatePhotoEditBlocsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('waka_publisher_photo_edit_blocs');
+        Schema::dropIfExists('waka_publisher_bloc_texts');
     }
 }

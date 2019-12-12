@@ -3,18 +3,17 @@
 use Model;
 
 /**
- * PhotoEditBloc Model
+ * BlocText Model
  */
-class PhotoEditBloc extends Model
+class BlocText extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-        use \October\Rain\Database\Traits\NestedTree;
             use \October\Rain\Database\Traits\SoftDelete;
         
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_publisher_photo_edit_blocs';
+    public $table = 'waka_publisher_bloc_texts';
 
     /**
      * @var array Guarded fields

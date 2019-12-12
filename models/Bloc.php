@@ -68,7 +68,7 @@ class Bloc extends Model
     public $hasOne = [];
     public $hasMany = [];
     public $belongsTo = [
-        'bloc_name' => ['Waka\Publisher\Models\BlocName'],
+        'document' => ['Waka\Publisher\Models\Document'],
         'bloc_type' => ['Waka\Publisher\Models\BlocType'],
     ];
     public $belongsToMany = [];

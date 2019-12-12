@@ -11,13 +11,17 @@ class CreateBlocsTable extends Migration
         Schema::create('waka_publisher_blocs', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('slug');
+            $table->string('code');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('bloc_name_id')->nullable();
-            $table->integer('bloc_type_id')->nullable();
-            $table->integer('data_id')->nullable();;
-            $table->string('data_type')->nullable();;                  
+
+            $table->integer('document_id')->nullable();
+
+            $table->integer('data_id')->nullable();
+            $table->string('data_type')->nullable();  
+
+            $table->integer('personalisation')->nullable();
+
             $table->integer('sort_order')->default(0);
                                     
             $table->softDeletes();

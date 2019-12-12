@@ -3,9 +3,9 @@
 use Model;
 
 /**
- * TextBloc Model
+ * BlocPhoto Model
  */
-class TextBloc extends Model
+class BlocPhoto extends Model
 {
     use \October\Rain\Database\Traits\Validation;
             use \October\Rain\Database\Traits\SoftDelete;
@@ -13,7 +13,7 @@ class TextBloc extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_publisher_text_blocs';
+    public $table = 'waka_publisher_bloc_photos';
 
     /**
      * @var array Guarded fields
@@ -67,9 +67,7 @@ class TextBloc extends Model
     public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
-    public $morphOne = [
-        'bloc' => ['Waka\Publisher\Models\Bloc', 'name' => 'data']
-    ];
+    public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];

@@ -5,8 +5,20 @@
 fields:
     name:
         label: waka.publisher::lang.bloc_type.name
-    slug:
-        label: waka.utils::lang.global.slug
-        preset: name
+    type:
+        label: waka.publisher::lang.bloc_type.type
+        type: radio
+        options:
+            bloc: waka.publisher::lang.bloc_type.type_bloc
+            raw: waka.publisher::lang.bloc_type.type_raw
+    code:
+        label: waka.publisher::lang.bloc_type.code
     model:
-        label: waka.utils::lang.bloc_type.model
+        label: waka.publisher::lang.bloc_type.model
+    icon:
+        label: waka.utils::lang.global.icon
+        type: awesomeiconslist
+        unicodeValue: false
+        emptyOption: false
+        placeholder: waka.utils::lang.global.placeholder_icon
+        span: left

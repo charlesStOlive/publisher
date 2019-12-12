@@ -1,6 +1,7 @@
 <?php namespace Waka\Publisher\Models;
 
 use Model;
+use \Waka\Publisher\Classes\WordProcessor;
 
 /**
  * Document Model
@@ -8,9 +9,9 @@ use Model;
 class Document extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-            use \October\Rain\Database\Traits\SoftDelete;
-            use \October\Rain\Database\Traits\Sortable;
-    
+    use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Sortable;
+
     /**
      * @var string The database table used by the model.
      */
@@ -57,14 +58,16 @@ class Document extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-                'deleted_at',
-            ];
+        'deleted_at',
+    ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
-    public $hasMany = [];
+    public $hasMany = [
+        'blocs' => ['Waka\Publisher\Models\Bloc']
+    ];
     public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
@@ -72,4 +75,10 @@ class Document extends Model
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    public function afterSave()
+    {
+        $tags = WordProcessor::checkTags($this->id);
+        trace_log($tags);
+    }
 }

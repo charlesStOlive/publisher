@@ -12,14 +12,11 @@ class CreateBlocTypesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
-            $table->string('slug');
-            $table->string('model');
-                                    
+            $table->string('code');
+            $table->string('type');
+            $table->string('model'); 
+            $table->string('icon');                     
             $table->integer('sort_order')->default(0);
-                                    
-            $table->softDeletes();
-                        
-            $table->timestamps();
         });
     }
 

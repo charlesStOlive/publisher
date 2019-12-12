@@ -13,6 +13,13 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
+
+            $table->string('path');
+            $table->text('analyze');
+            
+
+
+            $table->boolean('has_sectors_perso')->default(false);
                                     
             $table->integer('sort_order')->default(0);
                                     

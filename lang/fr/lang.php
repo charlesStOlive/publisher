@@ -21,4 +21,12 @@ return [
         'bloc_name_ex' => 'Liaison avec le document',
         'bloc_type' => 'Type de contenu',
     ],
+    'bloc_type' => [
+        'name' => 'Intitulé',
+        'type' => 'Type de bloc',
+        'type_bloc' => "Le contenu sera de type : 'bloc'",
+        'type_raw' => "Le contenu sera de type : 'raw'",
+        'code' => "Code d'itentification du bloc",
+        'model' => 'Model associé',
+    ],
 ];

@@ -86,15 +86,20 @@ class Plugin extends PluginBase
         return [
             'publisher' => [
                 'label'       => Lang::get('waka.publisher::lang.menu.title'),
-                'url'         => Backend::url('waka/publisher/blocnames'),
+                'url'         => Backend::url('waka/publisher/documents'),
                 'icon'        => 'icon-leaf',
                 'permissions' => ['waka.publisher.*'],
                 'order'       => 500,
                 'sideMenu' => [
-                    'side-menu-bloc-name' => [
-                        'label'       => Lang::get('waka.publisher::lang.menu.bloc_name'),
+                    'side-menu-documents' => [
+                        'label'       => Lang::get('waka.publisher::lang.menu.documents'),
                         'icon'        => 'icon-building',
-                        'url'         => Backend::url('waka/publisher/blocnames'),
+                        'url'         => Backend::url('waka/publisher/documents'),
+                    ],
+                    'side-menu-blocs' => [
+                        'label'       => Lang::get('waka.publisher::lang.menu.blocs'),
+                        'icon'        => 'icon-users',
+                        'url'         => Backend::url('waka/publisher/blocs'),
                     ],
                     'side-menu-bloc-type' => [
                         'label'       => Lang::get('waka.publisher::lang.menu.bloc_type'),

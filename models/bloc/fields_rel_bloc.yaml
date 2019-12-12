@@ -6,6 +6,9 @@ fields:
     name:
         label: waka.publisher::lang.bloc.name
         comment: waka.publisher::lang.bloc.name_ex
-    slug:
+    code:
         label: waka.utils::lang.global.slug
         preset: name
+    bloc_type:
+        label: waka.publisher::lang.bloc.bloc_type
+        type: relation

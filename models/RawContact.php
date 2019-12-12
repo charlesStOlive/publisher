@@ -3,18 +3,17 @@
 use Model;
 
 /**
- * BlocName Model
+ * RawContact Model
  */
-class BlocName extends Model
+class RawContact extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    use \October\Rain\Database\Traits\SoftDelete;
-    use \October\Rain\Database\Traits\Sortable;
-
+            use \October\Rain\Database\Traits\SoftDelete;
+        
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_publisher_bloc_names';
+    public $table = 'waka_publisher_raw_contacts';
 
     /**
      * @var array Guarded fields
@@ -57,27 +56,19 @@ class BlocName extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
-    ];
+                'deleted_at',
+            ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
-    public $hasMany = [
-         'blocs' => ['Waka\Publisher\Models\Bloc'],
-    ];
-    public $belongsTo = [
-        'bloc_type' => ['Waka\Publisher\Models\BlocType']
-    ];
+    public $hasMany = [];
+    public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
-
-    /**
-     * 
-     */
 }

@@ -4,11 +4,11 @@ use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class CreateTextBlocsTable extends Migration
+class CreateRawContactsTable extends Migration
 {
     public function up()
     {
-        Schema::create('waka_publisher_text_blocs', function (Blueprint $table) {
+        Schema::create('waka_publisher_raw_contacts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
@@ -22,6 +22,6 @@ class CreateTextBlocsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('waka_publisher_text_blocs');
+        Schema::dropIfExists('waka_publisher_raw_contacts');
     }
 }

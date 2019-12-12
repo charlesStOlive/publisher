@@ -5,7 +5,7 @@
 columns:
     
     name:
-        label: waka.publisher::lang.textbloc.name
+        label: waka.publisher::lang.objtext.name
         searchable: true
     updated_at:
         label: waka.utils::lang.global.updated_at
