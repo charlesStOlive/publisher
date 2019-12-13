@@ -1,0 +1,24 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    
+    sort_order:
+        label: waka.utils::lang.global.sort_order
+        invisible: true
+    
+    name:
+        label: waka.publisher::lang.bloc.name
+        searchable: true
+    updated_at:
+        label: waka.utils::lang.global.updated_at
+        type: timetense
+    action:
+        label: waka.utils::lang.global.action
+        clickable: false
+        searchable: false
+        sortable: false
+        width: 50px
+        type: 'partial'
+        path: 'btn_action'

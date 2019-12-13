@@ -5,6 +5,7 @@ return [
         'title' => 'Contenu',
         'bloc_name' => 'Gestion des blocs',
         'bloc_type' => 'types',
+        'documents' => 'Documents',
     ],
     'bloc' => [
         'name' => 'Intitulé',
@@ -28,5 +29,11 @@ return [
         'type_raw' => "Le contenu sera de type : 'raw'",
         'code' => "Code d'itentification du bloc",
         'model' => 'Model associé',
+        'ajax_method' => 'Méthode Ajax',
+    ],
+    'document' => [
+        'path' => 'Fichier source',
+        'analyze' => "Log d'analyse des codes du fichier source",
+        'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur'
     ],
 ];

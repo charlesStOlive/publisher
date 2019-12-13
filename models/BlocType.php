@@ -9,6 +9,7 @@ class BlocType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sortable;
+    use \Waka\Utils\Classes\Traits\IconsList;
 
     public $timestamps = false;
 
@@ -30,7 +31,14 @@ class BlocType extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [];
+    public $rules = [
+        'name'  => 'required',
+        'code'  => 'required',
+        'type'  => 'required',
+        'model' => 'required',
+        'icon'  => 'required',
+        'ajax_method' => 'required',
+    ];
 
     /**
      * @var array Attributes to be cast to native types

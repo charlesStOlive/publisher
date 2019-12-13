@@ -4,14 +4,15 @@ use Schema;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
 
-class CreateBlocTextsTable extends Migration
+class CreateObjTextsTable extends Migration
 {
     public function up()
     {
-        Schema::create('waka_publisher_bloc_texts', function (Blueprint $table) {
+        Schema::create('waka_publisher_obj_texts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->text('data');
+            $table->string('name');
+            $table->string('slug');
                                                 
             $table->softDeletes();
                         
@@ -21,6 +22,6 @@ class CreateBlocTextsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('waka_publisher_bloc_texts');
+        Schema::dropIfExists('waka_publisher_obj_texts');
     }
 }

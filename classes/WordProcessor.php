@@ -11,24 +11,29 @@ use AjaxException;
 
 Class WordProcessor {
 
+    public static $id;
+
     /**
      * 
      */
-    public static function checkTags($id) {
+    public static function checkTags($id, $context='null') {
         $document = Document::find($id);
         $document_path = self::getPath($document);
         $templateProcessor = new TemplateProcessor($document_path);
-        $test = self::filterTags($templateProcessor->getVariables(),$id);
-        return $test;
+        $tagsCollection = self::filterTags($templateProcessor->getVariables(),$id);
+        //
+        $document->analyze = implode("\n", $tagsCollection->get('error'));
+        if($context == 'create') $document->save();
+        //
+
+        return $tagsCollection;
     }
     /**
      * 
      */
     public static function filterTags($tags, $id) {
         $filteredTag = new Collection();
-        $blocs= [];
-        $rows = [];
-        $simple = [] ;
+        $blocs = [];
         $appCode = BlocType::get()->toArray();
         trace_log($appCode);
         $logInfo = ['Log chargement du document'];
@@ -59,6 +64,8 @@ Class WordProcessor {
             if($blocType == 'bloc' or $blocCode == 'raw') {
                 // on commence un bloc
                 $insideBlock = true;
+                $obj = (object)['type' => $blocType, 'code' => $blocCode];
+                array_push($blocs,$obj);
                 
                 array_push($logInfo, "Nouveau bloc détécté ".$blocType.'.'.$blocCode);
             } else {
@@ -66,9 +73,9 @@ Class WordProcessor {
             };
         }
         $filteredTag->put('error',$logInfo );
+        $filteredTag->put('blocs',$blocs );
 
         return $filteredTag;
-
     }
     /**
      * 

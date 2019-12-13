@@ -11,7 +11,6 @@ class Documents extends Controller
     public $implement = [
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController',
-        'Backend.Behaviors.RelationController',
         'Backend.Behaviors.ReorderController',
 
     ];
@@ -19,7 +18,7 @@ class Documents extends Controller
     public $formConfig = 'config_form.yaml';
     public $listConfig = 'config_list.yaml';
     //public $duplicateConfig = 'config_duplicate.yaml';
-    public $relationConfig = 'config_relation.yaml';
+    //public $relationConfig = 'config_relation.yaml';
 
     public $reorderConfig = 'config_reorder.yaml';
 
@@ -31,7 +30,7 @@ class Documents extends Controller
     }
     public function updatebloc($id)
     {
-        $config = $this->makeConfig('$/waka/publisher/models/document/fields.yaml');
+        $config = $this->makeConfig('$/waka/publisher/models/document/fields_rel_blocs.yaml');
 
         $config->model = \Waka\Publisher\Models\Document::find($id);
 

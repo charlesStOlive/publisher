@@ -14,8 +14,9 @@ class CreateBlocTypesTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('type');
-            $table->string('model'); 
-            $table->string('icon');                     
+            $table->string('model');
+            $table->string('ajax_method'); 
+            $table->string('icon');                   
             $table->integer('sort_order')->default(0);
         });
     }

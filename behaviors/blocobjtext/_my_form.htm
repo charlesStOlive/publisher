@@ -1,0 +1,11 @@
+<?= Form::open() ?>
+<h1>Gestion du contenu</h1>
+<div class="layout-row">
+    <?=  $this->widget->blocObjTextformWidget->render() ?>
+</div>
+
+<button type="submit" data-request="onBlocObjTextValidation" data-request-data="redirect:0, id:<?=$modelId?>"
+    data-load-indicator="<?= e(trans('waka.utils::lang.global.savinf')) ?>..." class="btn btn-primary">
+    <?= e(trans('waka.utils::lang.global.save')) ?>
+</button>
+<?= Form::close() ?>

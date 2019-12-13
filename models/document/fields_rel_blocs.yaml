@@ -3,24 +3,22 @@
 # ===================================
 
 fields:
-    name:
-        label: waka.publisher::lang.document.name
-    slug:
-        label: waka.utils::lang.global.slug
-        preset: name
     path:
         label: waka.publisher::lang.document.path
         type: mediafinder
+        desabled: true
     has_sectors_perso:
         label: waka.publisher::lang.document.has_sectors_perso
         type: checkbox
         default: 0
-    # blocs:
-    #     type: partial
-    #     path: field_blocs
-    analyze@update:
-        label: waka.publisher::lang.document.analyse
-        type: textarea
-        size: huge
+        desabled: true
+    blocs:
+        type: partial
+        path: field_blocs
+    # analyze@update:
+    #     label: waka.publisher::lang.document.analyse
+    #     type: textarea
+    #     size: huge
+    #     desabled: true
     
     

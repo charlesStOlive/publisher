@@ -6,7 +6,7 @@
 name: Document
 
 # Model Form Field configuration
-form: $/waka/publisher/models/document/fields.yaml
+form: $/waka/publisher/models/document/fields_rel_blocs.yaml
 
 # Model Class name
 modelClass: Waka\Publisher\Models\Document

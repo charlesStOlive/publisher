@@ -3,18 +3,17 @@
 use Model;
 
 /**
- * Bloc Model
+ * ObjText Model
  */
-class Bloc extends Model
+class ObjText extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    use \October\Rain\Database\Traits\SoftDelete;
-    use \October\Rain\Database\Traits\Sortable;
-
+            use \October\Rain\Database\Traits\SoftDelete;
+        
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_publisher_blocs';
+    public $table = 'waka_publisher_obj_texts';
 
     /**
      * @var array Guarded fields
@@ -30,7 +29,7 @@ class Bloc extends Model
      * @var array Validation rules for attributes
      */
     public $rules = [
-        'code' => 'required',
+        'data' => 'required'
     ];
 
     /**
@@ -41,7 +40,7 @@ class Bloc extends Model
     /**
      * @var array Attributes to be cast to JSON
      */
-    protected $jsonable = [];
+    protected $jsonable = ['data'];
 
     /**
      * @var array Attributes to be appended to the API representation of the model (ex. toArray())
@@ -59,28 +58,19 @@ class Bloc extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
-    ];
+                'deleted_at',
+            ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
     public $hasMany = [];
-    public $belongsTo = [
-        'document' => ['Waka\Publisher\Models\Document'],
-        'bloc_type' => ['Waka\Publisher\Models\BlocType'],
-    ];
+    public $belongsTo = [];
     public $belongsToMany = [];
-    public $morphTo = [
-        'data' => [],
-    ];
+    public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
-
-    /**
-     * GET
-     */
 }

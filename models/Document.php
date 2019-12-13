@@ -76,9 +76,17 @@ class Document extends Model
     public $attachOne = [];
     public $attachMany = [];
 
-    public function afterSave()
+    public function afterCreate()
     {
-        $tags = WordProcessor::checkTags($this->id);
+        $tags = WordProcessor::checkTags($this->id, 'create');
         trace_log($tags);
+    }
+    public function beforeSave()
+    {
+        if($this->id) {
+            $tags = WordProcessor::checkTags($this->id);
+            trace_log($tags);
+        }
+        
     }
 }

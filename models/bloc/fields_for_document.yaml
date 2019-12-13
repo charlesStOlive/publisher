@@ -7,8 +7,8 @@ fields:
         label: waka.publisher::lang.bloc.name
         comment: waka.publisher::lang.bloc.name_ex
     code:
-        label: waka.utils::lang.global.slug
-        preset: name
+        label: waka.utils::lang.global.code
     bloc_type:
         label: waka.publisher::lang.bloc.bloc_type
         type: relation
+    

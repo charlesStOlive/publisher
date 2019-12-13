@@ -15,10 +15,11 @@ fields:
         label: waka.publisher::lang.bloc_type.code
     model:
         label: waka.publisher::lang.bloc_type.model
+    ajax_method:
+        label: waka.publisher::lang.bloc_type.ajax_method
     icon:
         label: waka.utils::lang.global.icon
-        type: awesomeiconslist
-        unicodeValue: false
-        emptyOption: false
+        type: dropdown
         placeholder: waka.utils::lang.global.placeholder_icon
+        options: iconsAutumnList
         span: left

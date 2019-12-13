@@ -15,7 +15,7 @@ class CreateDocumentsTable extends Migration
             $table->string('slug');
 
             $table->string('path');
-            $table->text('analyze');
+            $table->text('analyze')->nullable();
             
 
 

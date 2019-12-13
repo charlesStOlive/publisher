@@ -4,7 +4,7 @@
 
 fields:
     name:
-        label: waka.publisher::lang.objtext.name
+        label: waka.publisher::lang.bloctext.name
     slug:
         label: waka.utils::lang.global.slug
         preset: name
