@@ -2,23 +2,28 @@
 #  Form Field Definitions
 # ===================================
 
-fields:
-    path:
-        label: waka.publisher::lang.document.path
-        type: mediafinder
-        desabled: true
-    has_sectors_perso:
-        label: waka.publisher::lang.document.has_sectors_perso
-        type: checkbox
-        default: 0
-        desabled: true
-    blocs:
-        type: partial
-        path: field_blocs
-    # analyze@update:
-    #     label: waka.publisher::lang.document.analyse
-    #     type: textarea
-    #     size: huge
-    #     desabled: true
+tabs:
+    stretch: true
+    defaultTab: Accueil
+    fields:
+        blocs:
+            type: partial
+            path: field_blocs
+        path:
+            label: waka.publisher::lang.document.path
+            type: mediafinder
+            desabled: true
+            tab: Options
+        has_sectors_perso:
+            label: waka.publisher::lang.document.has_sectors_perso
+            type: checkbox
+            default: 0
+            desabled: true
+            tab: Options
+        # analyze@update:
+        #     label: waka.publisher::lang.document.analyse
+        #     type: textarea
+        #     size: huge
+        #     desabled: true
     
     

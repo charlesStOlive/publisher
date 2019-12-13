@@ -1,12 +1,7 @@
 <!-- Primary content -->
 <?php Block::put('form-contents') ?>
-<div class="layout-row">
-    <div class="form-buttons">
-        <?= $this->fireViewEvent('backend.top.update') ?>
-        <?= $this->fireViewEvent('backend.crsm.updateView') ?>
-    </div>
-    <?= $this->formRender() ?>
-</div>
+<div id="side-content" class="hide-tabs">Ici du contenu</div>
+
 <?php Block::endPut() ?>
 
 <!-- Complimentary sidebar -->
@@ -17,7 +12,14 @@
     <li><?= e($this->pageTitle) ?></li>
 </ul> -->
 <?php Block::endPut() ?>
-<div id="side-content" class="hide-tabs">Ici du contenu</div>
+<!--<div class="layout-row">
+    <div class="form-buttons">
+        <?= $this->fireViewEvent('backend.top.update') ?>
+        <?= $this->fireViewEvent('backend.crsm.updateView') ?>
+    </div>
+    
+</div>-->
+<?= $this->formRender() ?>
 <?php Block::endPut() ?>
 
 <!-- Layout execution -->

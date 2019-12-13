@@ -13,6 +13,7 @@ return [
         'bloc_name' => 'Nom',
         'bloc_name_ex' => 'Liaison avec le document',
         'bloc_type' => 'Type de contenu',
+        'code' => 'code'
     ],
     'bloc_name' => [
         'name' => 'Intitulé',

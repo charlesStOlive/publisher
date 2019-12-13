@@ -13,6 +13,7 @@ fields:
                 value:
                     label: waka.publisher::lang.objtext.value
                     type: textarea
+                    size: small
                 jump:
                     label: waka.publisher::lang.objtext.jump
                     type: checkbox
