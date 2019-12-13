@@ -73,12 +73,16 @@ class Bloc extends Model
     ];
     public $belongsToMany = [];
     public $morphTo = [
-        'data' => [],
+        'obj' => [],
     ];
     public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    /**
+     * EVENT
+     */
 
     /**
      * GET

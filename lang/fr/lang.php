@@ -36,4 +36,11 @@ return [
         'analyze' => "Log d'analyse des codes du fichier source",
         'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur'
     ],
+    'objtext' => [
+        'data' => 'Paragraphes',
+        'data_prompt' => "Cliquez ici pour ajouter un paragraphe",
+        'value' => 'Paragraphe',
+        'jump' => 'Saut de ligne entre les deux paragraphes',
+        
+    ],
 ];

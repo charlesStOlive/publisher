@@ -19,8 +19,8 @@ class CreateBlocsTable extends Migration
 
             $table->integer('bloc_type_id')->unsigned();  
 
-            $table->integer('data_id')->unsigned()->nullable();
-            $table->string('data_type')->nullable();  
+            $table->integer('obj_id')->unsigned()->nullable();
+            $table->string('obj_type')->nullable();  
 
             $table->integer('personalisation')->nullable();
 

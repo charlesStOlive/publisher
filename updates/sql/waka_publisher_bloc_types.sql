@@ -1,3 +1,3 @@
-INSERT INTO `waka_publisher_bloc_types` (`id`, `name`, `code`, `type`, `model`, `ajax_method`, `icon`, `sort_order`) VALUES (1, 'Bloc de texte', 'texte', 'bloc', 'Waka\\Publisher\\Models\\BlocText', 'onLoadBlocMoBlocTextForm', 'icon-align-left', 1);
-INSERT INTO `waka_publisher_bloc_types` (`id`, `name`, `code`, `type`, `model`, `ajax_method`, `icon`, `sort_order`) VALUES (2, 'Bloc photos', 'photo', 'bloc', 'Waka\\Publisher\\Models\\BlocPhoto', 'onLoadBlocMoBlocPhotoForm', 'icon-picture-o', 2);
-INSERT INTO `waka_publisher_bloc_types` (`id`, `name`, `code`, `type`, `model`, `ajax_method`, `icon`, `sort_order`) VALUES (3, 'Contacts', 'contacts', 'raw', 'Waka\\Publisher\\Models\\RawContact', 'onLoadBlocMoContactForm', 'icon-user', 3);
+INSERT INTO `waka_publisher_bloc_types` VALUES (1, 'Bloc de texte', 'texte', 'bloc', 'Waka\\Publisher\\Models\\ObjText', 'onLoadBlocObjTextForm', 'icon-align-left', 1);
+INSERT INTO `waka_publisher_bloc_types` VALUES (2, 'Bloc photos', 'photo', 'bloc', 'Waka\\Publisher\\Models\\ObjPhoto', 'onLoadBlocObjPhotoForm', 'icon-picture-o', 2);
+INSERT INTO `waka_publisher_bloc_types` VALUES (3, 'Contacts', 'contacts', 'raw', 'Waka\\Publisher\\Models\\RawContact', 'onLoadBlocRawContactForm', 'icon-user', 3);

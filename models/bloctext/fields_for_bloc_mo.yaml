@@ -2,7 +2,7 @@
 #  Form Field Definitions
 # ===================================
 
-fields:
+fiels:
     name:
         label: waka.publisher::lang.bloctext.name
     slug:

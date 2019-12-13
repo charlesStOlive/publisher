@@ -3,11 +3,14 @@
 use Backend\Classes\ControllerBehavior;
 use October\Rain\Support\Collection;
 use October\Rain\Exception\ApplicationException;
+use Waka\Publisher\Models\ObjText;
+use Waka\Publisher\Models\Bloc;
 use Flash;
 
 class BlocObjText extends ControllerBehavior
 {
     protected $blocObjTextWidget;
+    protected $model;
 
 	public function __construct($controller)
     {
@@ -19,9 +22,20 @@ class BlocObjText extends ControllerBehavior
      //ci dessous tous les calculs pour permettre l'import excel. 
     public function onLoadBlocObjTextForm()
     {
-        $blocModel = \Waka\Publisher\Models\Bloc::find(post('id'));
-        $this->vars['blocModel'] = $blocModel;
+        $model = Bloc::find(post('id'));
+        if($model->obj) {
+            $this->blocObjTextWidget->config->model = ObjText::find($model->obj->id);
+            $fields = $this->blocObjTextWidget->fields;
+            foreach($fields as $field) {
+                //$field->defaults = '[{"value":"xxxxxx","jump":"1"}]';
+                trace_log($field);
+            }
+            //trace_log($this->blocObjTextWidget->config->model->data);
+
+        }
+        //$this->vars['model'] = $model;
         $this->vars['modelId'] = post('id');
+        trace_log($this->blocObjTextWidget->config);
         return ['#side-content' => $this->makePartial('$/waka/publisher/behaviors/blocobjtext/_my_form.htm')];
     }
 
@@ -32,7 +46,7 @@ class BlocObjText extends ControllerBehavior
 
         $config->arrayName = 'blocObjText_array';
         //$config->redirect = $this->getConfig('redirect').':id';
-        $config->model = new \Waka\Publisher\Models\BlocText;
+        $config->model = new ObjText;
 
         $widget = $this->makeWidget('Backend\Widgets\Form', $config);
         $widget->bindToController();
@@ -41,7 +55,32 @@ class BlocObjText extends ControllerBehavior
     }
 
     public function onBlocObjTextValidation(){
-        $data = $this->duplicateWidget->getSaveData();
+        $saveData = $this->blocObjTextWidget->getSaveData();
+
+
+        $id = post('id');
+        $model = \Waka\Publisher\Models\Bloc::find($id);
+        
+        
+
+        if($model->obj) {
+            $modelObjText = ObjText::find($model->obj->id);
+            $modelObjText->data = $saveData['data'];
+            $modelObjText->save();
+        } else {
+            $modelObjText = new ObjText;
+            $modelObjText->data = $saveData['data'];
+            $modelObjText->save();
+            $modelObjText->bloc()->save($model);
+        }
+
+        //$association = $model->obj;
+
+        
+        
+        //Create a new Tag instance (fill the array with your own database fields)
+
+        //In the tag relationship, save a new video
 
         Flash::info("Données enregistré");
         //return  Redirect::to($this->getConfig('redirect').$cloneModel->id);

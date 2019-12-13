@@ -18,12 +18,12 @@ class ObjText extends Model
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = ['id'];
 
     /**
      * @var array Fillable fields
      */
-    protected $fillable = [];
+    protected $fillable = ['*'];
 
     /**
      * @var array Validation rules for attributes
@@ -69,7 +69,9 @@ class ObjText extends Model
     public $belongsTo = [];
     public $belongsToMany = [];
     public $morphTo = [];
-    public $morphOne = [];
+    public $morphOne = [
+        'bloc' => ['Waka\Publisher\Models\Bloc', 'name' => 'obj']
+    ];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];

@@ -11,9 +11,7 @@ class CreateObjTextsTable extends Migration
         Schema::create('waka_publisher_obj_texts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-                                                
+            $table->text('data');                               
             $table->softDeletes();
                         
             $table->timestamps();

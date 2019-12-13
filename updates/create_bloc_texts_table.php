@@ -11,10 +11,8 @@ class CreateBlocTextsTable extends Migration
         Schema::create('waka_publisher_bloc_texts', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->text('data');
-                                                
+            $table->text('data');                          
             $table->softDeletes();
-                        
             $table->timestamps();
         });
     }
