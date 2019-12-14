@@ -1,6 +1,7 @@
 <?php namespace Waka\Publisher;
 
 use Backend;
+use Lang;
 use System\Classes\PluginBase;
 
 /**
@@ -31,6 +32,13 @@ class Plugin extends PluginBase
     public function register()
     {
 
+    }
+
+    public function registerFormWidgets(): array
+    {
+        return [
+            'Waka\Publisher\FormWidgets\ShowAttributes' => 'showattributes',
+        ];
     }
 
     /**
@@ -81,16 +89,34 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
-        return []; // Remove this line to activate
 
         return [
             'publisher' => [
-                'label'       => 'Publisher',
-                'url'         => Backend::url('waka/publisher/mycontroller'),
+                'label'       => Lang::get('waka.publisher::lang.menu.title'),
+                'url'         => Backend::url('waka/publisher/documents'),
                 'icon'        => 'icon-leaf',
                 'permissions' => ['waka.publisher.*'],
                 'order'       => 500,
+                'sideMenu' => [
+                    'side-menu-documents' => [
+                        'label'       => Lang::get('waka.publisher::lang.menu.documents'),
+                        'icon'        => 'icon-building',
+                        'url'         => Backend::url('waka/publisher/documents'),
+                    ],
+                    'side-menu-blocs' => [
+                        'label'       => Lang::get('waka.publisher::lang.menu.blocs'),
+                        'icon'        => 'icon-users',
+                        'url'         => Backend::url('waka/publisher/blocs'),
+                    ],
+                    'side-menu-bloc-type' => [
+                        'label'       => Lang::get('waka.publisher::lang.menu.bloc_type'),
+                        'icon'        => 'icon-users',
+                        'url'         => Backend::url('waka/publisher/bloctypes'),
+                    ],
+                ]
+                
             ],
+            
         ];
     }
 }

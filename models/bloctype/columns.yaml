@@ -1,0 +1,17 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    
+    sort_order:
+        label: waka.utils::lang.global.sort_order
+        invisible: true
+    name:
+        label: waka.publisher::lang.bloc_type.name
+        searchable: true
+    model:
+        label: waka.utils::lang.bloc_type.model
+    updated_at:
+        label: waka.utils::lang.global.updated_at
+        type: timetense

@@ -1,0 +1,23 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    data: 
+        label: waka.publisher::lang.objtext.data
+        type: repeater
+        minItems: 1
+        prompt: waka.publisher::lang.objtext.data_prompt
+        form:
+            fields:
+                value:
+                    label: waka.publisher::lang.objtext.value
+                    type: textarea
+                    size: small
+                jump:
+                    label: waka.publisher::lang.objtext.jump
+                    type: checkbox
+
+            
+
+

@@ -1,1 +1,11 @@
-1.0.1: First version of Publisher
+1.0.1: 
+ - create_bloc_photos_table.php
+ - create_bloc_texts_table.php
+ - create_bloc_types_table.php
+ - create_blocs_table.php
+ - create_documents_table.php
+ - create_raw_contacts_table.php 
+ - create_obj_photos_table.php
+ - create_obj_texts_table.php
+ - seed_tables.php
+  

@@ -1,0 +1,20 @@
+<?= Form::open() ?>
+<h4>Gestion du contenu</h4>
+<div class="layout-row">
+    <?=  $blocObjTextWidget->render() ?>
+</div>
+<?php if(!$objId) { ?>
+<button type="submit" data-request="onBlocObjTextValidation" data-request-data="redirect:0, modelId:<?=$modelId?>"
+    data-load-indicator="<?= e(trans('waka.utils::lang.global.saving')) ?>..." class="btn btn-primary">
+    <?= e(trans('waka.utils::lang.global.create')) ?>
+</button>
+<?php } else { ?>
+<button type="submit" data-request="onBlocObjTextValidation"
+    data-request-data="redirect:0, objId:<?=$objId?>, modelId:<?=$modelId?>"
+    data-load-indicator="<?= e(trans('waka.utils::lang.global.saving')) ?>..." class="btn btn-primary">
+    <?= e(trans('waka.utils::lang.global.save')) ?>
+</button>
+
+<?php } ?>
+
+<?= Form::close() ?>

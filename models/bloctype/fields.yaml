@@ -1,0 +1,25 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: waka.publisher::lang.bloc_type.name
+    type:
+        label: waka.publisher::lang.bloc_type.type
+        type: radio
+        options:
+            bloc: waka.publisher::lang.bloc_type.type_bloc
+            raw: waka.publisher::lang.bloc_type.type_raw
+    code:
+        label: waka.publisher::lang.bloc_type.code
+    model:
+        label: waka.publisher::lang.bloc_type.model
+    ajax_method:
+        label: waka.publisher::lang.bloc_type.ajax_method
+    icon:
+        label: waka.utils::lang.global.icon
+        type: dropdown
+        placeholder: waka.utils::lang.global.placeholder_icon
+        options: iconsAutumnList
+        span: left
