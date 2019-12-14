@@ -20,6 +20,12 @@ tabs:
             default: 0
             desabled: true
             tab: Options
+        show:
+            label: Salut
+            type: showattributes
+            className: Waka\Publisher\Models\Bloc
+            childs:
+                - bloc_type
         # analyze@update:
         #     label: waka.publisher::lang.document.analyse
         #     type: textarea

@@ -34,6 +34,13 @@ class Plugin extends PluginBase
 
     }
 
+    public function registerFormWidgets(): array
+    {
+        return [
+            'Waka\Publisher\FormWidgets\ShowAttributes' => 'showattributes',
+        ];
+    }
+
     /**
      * Boot method, called right before the request route.
      *
