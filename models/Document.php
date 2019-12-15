@@ -78,14 +78,14 @@ class Document extends Model
 
     public function afterCreate()
     {
+        
         $tags = WordProcessor::checkTags($this->id, 'create');
-        trace_log($tags);
     }
     public function beforeSave()
     {
+        $this->state_info = 'warning';
         if($this->id) {
             $tags = WordProcessor::checkTags($this->id);
-            trace_log($tags);
         }
         
     }

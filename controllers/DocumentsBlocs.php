@@ -30,5 +30,17 @@ class DocumentsBlocs extends Controller
         BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents-blocsBlocsblocs');
         //$this->morphOneWidget = $this->createMorphOneFormWidget();
     }
+
+    public function onCallInfoPopupBehavior() {
+        trace_log('onCallInfoPopupBehavior');
+        trace_log(post('model'));
+        trace_log(post('id'));
+        $modelName = post('model');
+        $model = new $modelName;
+        trace_log(get_class($model));
+        $model = $model->find(post('id'));
+
+        trace_log($model->name);
+    }
     
 }

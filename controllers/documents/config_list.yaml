@@ -12,7 +12,7 @@ modelClass: Waka\Publisher\Models\Document
 title: Manage Documents
 
 # Link URL for each record
-recordUrl: waka/publisher/documentsblocs/update/:id
+recordUrl: waka/publisher/documents/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

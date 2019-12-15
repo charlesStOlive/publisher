@@ -11,6 +11,10 @@ columns:
     name:
         label: waka.publisher::lang.document.name
         searchable: true
+    state_info:
+        label : 
+        type: waka-icon-info
+        launch_request: true
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense

@@ -24,7 +24,7 @@ class Bloc extends Model
     /**
      * @var array Fillable fields
      */
-    protected $fillable = ['*'];
+    protected $fillable = ['name, code'];
 
     /**
      * @var array Validation rules for attributes

@@ -58,13 +58,13 @@ use October\Rain\Support\Collection;
         $model = new $_model;
         $model = $model::find(1);
         $columns = $model->getFillable();
-        trace_log($columns);
+        //trace_log($columns);
         // Another option is to get all columns for the table like so:
         // $columns = \Schema::getColumnListing($this->table);
         // but it's safer to just get the fillable fields
 
         $attributes = $model->getAttributes();
-        trace_log($attributes);
+        //trace_log($attributes);
 
         foreach ($columns as $column)
         {
@@ -73,7 +73,7 @@ use October\Rain\Support\Collection;
                 $attributes[$column] = null;
             }
         }
-        trace_log($attributes);
+        //trace_log($attributes);
         return $attributes;
     }
 
@@ -96,7 +96,6 @@ use October\Rain\Support\Collection;
 
     public function onShowAttributes() {
         //$this->prepareVars();
-        trace_log($this->getId('container'));
         return $this->makePartial('popup');
 
     }

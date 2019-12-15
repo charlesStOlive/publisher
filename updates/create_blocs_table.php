@@ -14,6 +14,7 @@ class CreateBlocsTable extends Migration
             $table->string('code');
             $table->string('name')->nullable();
             $table->text('description')->nullable();
+            $table->string('ready')->default(0);
 
             $table->integer('document_id')->unsigned()->nullable();
 

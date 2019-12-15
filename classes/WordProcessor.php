@@ -3,6 +3,7 @@
 use \PhpOffice\PhpWord\TemplateProcessor;
 use Waka\Publisher\Models\Document;
 use Waka\Publisher\Models\BlocType;
+use Waka\Publisher\Models\Bloc;
 
 use Storage;
 use ApplicationException;
@@ -11,31 +12,47 @@ use AjaxException;
 
 Class WordProcessor {
 
-    public static $id;
+    public static $document_id;
+    public static $document;
+    public static $bloc_types;
+    public static $AllBlocs;
+    public static $increment;
+
+
+    public static function prepareVars($document_id) {
+        self::$increment = 1;
+        self::$document_id = $document_id;
+        self::$bloc_types = BlocType::get(['id', 'code']);
+        self::$AllBlocs = Bloc::get(['id', 'document_id', 'code', 'name']);
+        self::$document = Document::find($document_id);
+        
+    }
 
     /**
      * 
      */
     public static function checkTags($id, $context='null') {
-        $document = Document::find($id);
-        $document_path = self::getPath($document);
+        self::prepareVars($id);
+        $document_path = self::getPath(self::$document);
         $templateProcessor = new TemplateProcessor($document_path);
-        $tagsCollection = self::filterTags($templateProcessor->getVariables(),$id);
         //
-        $document->analyze = implode("\n", $tagsCollection->get('error'));
-        if($context == 'create') $document->save();
+        $tagsCollection = self::filterTags($templateProcessor->getVariables());
         //
-
+        self::$document->analyze = implode("\n", $tagsCollection->get('error'));
+        //
+        if($context == 'create') self::$document->save();
+        //
+        $create = self::createBlocs($tagsCollection->get('blocs'));
+        //
         return $tagsCollection;
     }
     /**
      * 
      */
-    public static function filterTags($tags, $id) {
+    public static function filterTags($tags) {
         $filteredTag = new Collection();
         $blocs = [];
-        $appCode = BlocType::get()->toArray();
-        trace_log($appCode);
+        $uniqueValue = [];
         $logInfo = ['Log chargement du document'];
 
         //permet de savoir si nous sommes dans un bloc 
@@ -59,23 +76,91 @@ Class WordProcessor {
                 array_push($logInfo, "Un code est mal formaté il ne sera pas pris en compte :  ".$tag);
                 continue;
             } 
+            $blocFormat = array_shift($parts);
             $blocType = array_shift($parts);
-            $blocCode = array_shift($parts); 
-            if($blocType == 'bloc' or $blocCode == 'raw') {
+            $blocCode = implode( ".", $parts ); 
+            if($blocFormat == 'bloc' or $blocFormat == 'raw') {
+                if(!$blocType || !$blocCode ) {
+                    array_push($logInfo, "Un bloc est mal formaté il ne sera pas pris en compte :  ".$tag);
+                    continue;
+                }
+                if(!self::returnBlocTypeId($blocType)) {
+                    array_push($logInfo, "le code  : ".$blocType."n'existe pas dans l'application il ne sera pas pris en compte bloc : ".$tag);
+                    continue;
+                }
                 // on commence un bloc
                 $insideBlock = true;
-                $obj = (object)['type' => $blocType, 'code' => $blocCode];
+                $obj = (object)['format' => $blocFormat, 'type' => $blocType, 'code' => $blocCode ];
                 array_push($blocs,$obj);
-                
-                array_push($logInfo, "Nouveau bloc détécté ".$blocType.'.'.$blocCode);
+                array_push($logInfo, "Nouveau bloc détécté ".$blocFormat.'.'.$blocType.'.'.$blocCode);
             } else {
                 array_push($logInfo, "Valeur unique ".$tag);
+                array_push($uniqueValue,$tag);
             };
         }
+        // Traduction du bloc :
         $filteredTag->put('error',$logInfo );
         $filteredTag->put('blocs',$blocs );
+        $filteredTag->put('uniques',$uniqueValue );
 
         return $filteredTag;
+    }
+    /**
+     * 
+     */
+    public static function createBLocs($blocs) {
+        trace_log($blocs);
+        if(count(self::$document->blocs) == 0) {
+            trace_log("il n' a pas encore de bloc");
+            foreach($blocs as $bloc) {
+                self::createBloc($bloc); 
+            } 
+        } else {
+            // Bloc existe ? 
+            foreach($blocs as $bloc) {
+                $blocModel =  self::returnBlocModel($bloc);
+                if($blocModel) trace_log($blocModel);
+                if(!$blocModel) {
+                    self::createBloc($bloc);
+                } else {
+                    $blocModel->ready = 'ok';
+                    $blocModel->save();
+                }
+            } 
+        }
+    }
+
+    public static function createBloc($_bloc) {
+        $bloc = new Bloc();
+        $bloc->code = $_bloc->code;
+        
+
+        $bloc->bloc_type =  BlocType::find(self::returnBlocTypeId($_bloc->type));
+        $bloc->name = $_bloc->code.' '.self::$increment++;
+        $bloc->ready = 'ok';
+        trace_log($bloc->toArray());
+        self::$document->blocs()->add($bloc);
+    }
+
+    public static function returnBlocModel($_bloc) {
+        trace_log('returnBlocModel');
+        $type_id = self::returnBlocTypeId($_bloc->type);
+        $blocExiste = Bloc::where('document_id', '=' ,self::$document_id)
+                            ->where('code','=', $_bloc->code)
+                            ->where('bloc_type_id','=', $type_id)->first();
+        return $blocExiste;
+    }
+
+
+
+    public static function returnBlocTypeId($name) {
+        $blocTypes= self::$bloc_types;
+        $id = null;
+        foreach($blocTypes as $blocType ) {
+            trace_log($blocType->code.' = '.$name);
+            if($blocType->code == $name ) $id = $blocType->id; 
+        }
+        return $id;
     }
     /**
      * 
