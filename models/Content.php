@@ -1,24 +1,25 @@
 <?php namespace Waka\Publisher\Models;
 
 use Model;
+use Flash;
 
 /**
- * BlocText Model
+ * Content Model
  */
-class BlocText extends Model
+class Content extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-            use \October\Rain\Database\Traits\SoftDelete;
-        
+    use \October\Rain\Database\Traits\SoftDelete;
+
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'waka_publisher_bloc_texts';
+    public $table = 'waka_publisher_contents';
 
     /**
      * @var array Guarded fields
      */
-    protected $guarded = ['*'];
+    protected $guarded = [];
 
     /**
      * @var array Fillable fields
@@ -56,19 +57,40 @@ class BlocText extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-                'deleted_at',
-            ];
+        'deleted_at',
+    ];
 
     /**
      * @var array Relations
      */
     public $hasOne = [];
     public $hasMany = [];
-    public $belongsTo = [];
+    public $belongsTo = [
+        'sector' => ['Waka\Crsm\Models\Sector'],
+        'bloc' => ['Waka\Publisher\Models\Bloc'],
+    ];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
     public $attachOne = [];
     public $attachMany = [];
+
+    /**
+     * Lists
+     */
+    public function listNestedSector()
+    {
+        return \Waka\Crsm\Models\Sector::all()->listsNested('name', 'id');
+    }
+
+    public function filterFields($fields, $context = null)
+    {
+        if (($context == 'createBase') || ($context == 'updateBase')) {
+            $fields->sector->hidden = true;
+        } 
+        if (($context == 'createVersion') || ($context == 'updateVersion')) {
+            $fields->sector->hidden = false;
+        }
+    }
 }

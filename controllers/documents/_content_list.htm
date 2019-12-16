@@ -1,0 +1,56 @@
+<?php if (count($contents)): ?>
+<div>
+    <div class="list-preview list-flush">
+        <div class="control-list">
+            <table class="table data" data-control="rowlink">
+                <thead>
+                    <tr>
+                        <th><span>Version</span></th>
+                        <th style="width: 10%"><span></span></th>
+                        <th style="width: 10%"><span></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($contents as $content): ?>
+                    <tr>
+                        <td>
+                            <?php
+                        if($content->sector) {
+                            echo "Version pour le secteur : ".e($content->sector->name);
+                        } else {
+                            echo "Version de base";
+                        } ?>
+                        </td>
+                        <td class="nolink text-right">
+                            <a href="javascript:;" data-control="popup" data-handler="onLoadUpdateContentForm"
+                                data-request-data="record_id: '<?= $content->id ?>'" class="icon-pencil"
+                                data-toggle="tooltip" title="Update"></a>
+                        </td>
+                        <?php if($content->sector) { ?>
+                        <td class="nolink text-right">
+                            <a href="javascript:;" data-request="onDeleteItem"
+                                data-request-data="record_id: '<?= $content->id ?>'"
+                                data-request-confirm="Delete this content?" class="oc-icon-remove" data-toggle="tooltip"
+                                title="Remove"></a>
+                        </td>
+                        <?php } ?>
+                    </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p>
+        <a href="javascript:;" class="btn btn-secondary oc-icon-plus" data-control="popup"
+            data-handler="onLoadCreateContentForm" data-size="large">
+            <?php 
+        if(count($contents)) {
+            echo 'Add new version';
+        } else {
+            echo 'Create content';
+        } ?>
+        </a>
+    </p>
+
+</div>
+<?php endif ?>

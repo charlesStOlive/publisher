@@ -17,7 +17,7 @@ defaultRedirect: waka/publisher/documents
 # Create page
 create:
     title: Create Document
-    redirect: waka/publisher/documentsblocs/update/:id
+    redirect: waka/publisher/documents/update/:id
     redirectClose: waka/publisher/documents
 
 # Update page

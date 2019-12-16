@@ -44,4 +44,9 @@ return [
         'jump' => 'Saut de ligne entre les deux paragraphes',
         
     ],
+    'content' => [
+        'name' => 'Contenu',
+        'sector' => "Secteur",
+        'sector_placeholder' => 'Choisissez un secteur',
+    ],
 ];

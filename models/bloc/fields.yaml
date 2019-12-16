@@ -6,9 +6,15 @@ fields:
     name:
         label: waka.publisher::lang.bloc.name
         comment: waka.publisher::lang.bloc.name_ex
+        span: auto
     code:
         label: waka.utils::lang.global.code
         preset: _name
+        span: auto
     bloc_type:
         label: waka.publisher::lang.bloc.bloc_type
         type: relation
+    contents:
+        label: waka.publisher::lang.bloc.contentq
+        type: partial
+        path: field_contents

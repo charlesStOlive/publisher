@@ -11,7 +11,7 @@ blocs:
         form: $/waka/publisher/models/bloc/fields.yaml
         list: $/waka/publisher/models/bloc/columns.yaml
     view:
-        list: $/waka/publisher/models/bloc/columns_for_document.yaml
+        list: $/waka/publisher/models/bloc/columns.yaml
         toolbarButtons: create|delete
         defaultSort:
             column: sort_order

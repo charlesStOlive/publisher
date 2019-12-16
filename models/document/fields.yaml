@@ -5,19 +5,21 @@
 fields:
     name:
         label: waka.publisher::lang.document.name
+        span: auto
     slug:
         label: waka.utils::lang.global.slug
         preset: name
+        span: auto
     path:
         label: waka.publisher::lang.document.path
         type: mediafinder
-    has_sectors_perso:
-        label: waka.publisher::lang.document.has_sectors_perso
-        type: checkbox
-        default: 0
-    # blocs:
-    #     type: partial
-    #     path: field_blocs
+    # has_sectors_perso:
+    #     label: waka.publisher::lang.document.has_sectors_perso
+    #     type: checkbox
+    #     default: 0
+    blocs@update:
+        type: partial
+        path: field_blocs
     # analyze@update:
     #     label: waka.publisher::lang.document.analyse
     #     type: textarea
