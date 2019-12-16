@@ -12,6 +12,7 @@ class Documents extends Controller
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.ListController',
         'Backend.Behaviors.ReorderController',
+        'Waka.Informer.Behaviors.PopupInfo',
 
     ];
 

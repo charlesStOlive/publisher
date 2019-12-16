@@ -11,10 +11,15 @@ columns:
     name:
         label: waka.publisher::lang.document.name
         searchable: true
-    state_info:
-        label : 
+    inform:
         type: waka-icon-info
+        width: 25px
+        label : ' '
         launch_request: true
+        show_null: true
+        clickable: false
+        searchable: false
+        sortable: false
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense

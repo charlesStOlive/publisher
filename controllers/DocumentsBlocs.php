@@ -12,6 +12,7 @@ class DocumentsBlocs extends Controller
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.RelationController',
         'Waka.Publisher.Behaviors.BlocObjText',
+        'Waka.Informer.Behaviors.PopupInfo',
         
     ];
     public $formConfig = 'config_form.yaml';
@@ -31,16 +32,6 @@ class DocumentsBlocs extends Controller
         //$this->morphOneWidget = $this->createMorphOneFormWidget();
     }
 
-    public function onCallInfoPopupBehavior() {
-        trace_log('onCallInfoPopupBehavior');
-        trace_log(post('model'));
-        trace_log(post('id'));
-        $modelName = post('model');
-        $model = new $modelName;
-        trace_log(get_class($model));
-        $model = $model->find(post('id'));
-
-        trace_log($model->name);
-    }
+    
     
 }

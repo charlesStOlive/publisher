@@ -10,15 +10,11 @@ columns:
     name:
         label: waka.publisher::lang.bloc.name
         searchable: true
-    state_info:
-        label : 
-        type: waka-icon-info
-        launch_request: true
     action:
-        label: waka.utils::lang.global.action
+        label: ' '
         clickable: false
         searchable: false
         sortable: false
-        width: 50px
+        width: 25px
         type: 'partial'
         path: 'btn_action'

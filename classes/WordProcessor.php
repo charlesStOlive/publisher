@@ -4,10 +4,10 @@ use \PhpOffice\PhpWord\TemplateProcessor;
 use Waka\Publisher\Models\Document;
 use Waka\Publisher\Models\BlocType;
 use Waka\Publisher\Models\Bloc;
+use Waka\Informer\Models\Inform;
 
 use Storage;
 use ApplicationException;
-use October\Rain\Support\Collection;
 use AjaxException;
 
 Class WordProcessor {
@@ -36,29 +36,23 @@ Class WordProcessor {
         $document_path = self::getPath(self::$document);
         $templateProcessor = new TemplateProcessor($document_path);
         //
-        $tagsCollection = self::filterTags($templateProcessor->getVariables());
+        $blocs = self::filterTags($templateProcessor->getVariables());
         //
-        self::$document->analyze = implode("\n", $tagsCollection->get('error'));
+        //self::$document->analyze = implode("\n", $tagsCollection->get('error'));
         //
         if($context == 'create') self::$document->save();
         //
-        $create = self::createBlocs($tagsCollection->get('blocs'));
+        $create = self::createBlocs($blocs);
         //
-        return $tagsCollection;
+        return $blocs;
     }
     /**
      * 
      */
     public static function filterTags($tags) {
-        $filteredTag = new Collection();
+        self::$document->delete_informs();
         $blocs = [];
-        $uniqueValue = [];
-        $logInfo = ['Log chargement du document'];
-
-        //permet de savoir si nous sommes dans un bloc 
         $insideBlock = false; 
-        $blocType = null;
-        $bloccode = null;
         foreach($tags as $tag) {
             // Si un / est détécté c'est une fin de bloc. on enregistre pas ce bloc.
             if(starts_with($tag, '/'))  {
@@ -67,43 +61,38 @@ Class WordProcessor {
             }
             // si on est dans un bloc on recherche  une value ou un path. 
             if($insideBlock) {
-                array_push($logInfo, $blocType.".".$blocCode." à le tag : ".$tag);
+                //array_push($logInfo, $blocType.".".$blocCode." à le tag : ".$tag);
                 continue;
                
             }
             $parts = explode('.', $tag);
             if(count($parts)<=1) {
-                array_push($logInfo, "Un code est mal formaté il ne sera pas pris en compte :  ".$tag);
+                self::$document->record_inform('warning', 'code mal formaté, non utilisé : '.$tag );
                 continue;
             } 
             $blocFormat = array_shift($parts);
             $blocType = array_shift($parts);
             $blocCode = implode( ".", $parts ); 
-            if($blocFormat == 'bloc' or $blocFormat == 'raw') {
+            //self::$document->record_inform('temp', $tag );
+            if(($blocFormat == 'bloc') || ($blocFormat == 'raw')) {
                 if(!$blocType || !$blocCode ) {
-                    array_push($logInfo, "Un bloc est mal formaté il ne sera pas pris en compte :  ".$tag);
+                    self::$document->record_inform('warning', 'code mal formaté, non utilisé : '.$tag );
                     continue;
                 }
                 if(!self::returnBlocTypeId($blocType)) {
-                    array_push($logInfo, "le code  : ".$blocType."n'existe pas dans l'application il ne sera pas pris en compte bloc : ".$tag);
+                    self::$document->record_inform('warning', 'type de bloc inexistant : '.$tag );
                     continue;
                 }
                 // on commence un bloc
                 $insideBlock = true;
                 $obj = (object)['format' => $blocFormat, 'type' => $blocType, 'code' => $blocCode ];
                 array_push($blocs,$obj);
-                array_push($logInfo, "Nouveau bloc détécté ".$blocFormat.'.'.$blocType.'.'.$blocCode);
             } else {
-                array_push($logInfo, "Valeur unique ".$tag);
-                array_push($uniqueValue,$tag);
+                //self::$document->record_inform('success', 'Valeur unique : '.$tag );
             };
         }
-        // Traduction du bloc :
-        $filteredTag->put('error',$logInfo );
-        $filteredTag->put('blocs',$blocs );
-        $filteredTag->put('uniques',$uniqueValue );
 
-        return $filteredTag;
+        return $blocs;
     }
     /**
      * 

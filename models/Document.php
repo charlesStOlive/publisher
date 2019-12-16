@@ -11,6 +11,8 @@ class Document extends Model
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
     use \October\Rain\Database\Traits\Sortable;
+    //
+    use \Waka\Informer\Classes\Traits\InformerTrait;
 
     /**
      * @var string The database table used by the model.
@@ -72,7 +74,9 @@ class Document extends Model
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
-    public $morphMany = [];
+    public $morphMany = [
+        'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable']
+    ];
     public $attachOne = [];
     public $attachMany = [];
 
@@ -83,7 +87,7 @@ class Document extends Model
     }
     public function beforeSave()
     {
-        $this->state_info = 'warning';
+        //$this->state_info = 'warning';
         if($this->id) {
             $tags = WordProcessor::checkTags($this->id);
         }

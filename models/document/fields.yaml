@@ -18,9 +18,9 @@ fields:
     # blocs:
     #     type: partial
     #     path: field_blocs
-    analyze@update:
-        label: waka.publisher::lang.document.analyse
-        type: textarea
-        size: huge
+    # analyze@update:
+    #     label: waka.publisher::lang.document.analyse
+    #     type: textarea
+    #     size: huge
     
     
