@@ -93,4 +93,9 @@ class Document extends Model
         }
         
     }
+    //
+    public function listContacts()
+    {
+        return \waka\Crsm\Models\Contact::lists('name', 'id');
+    }
 }
