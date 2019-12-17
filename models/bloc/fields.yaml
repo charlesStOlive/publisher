@@ -14,7 +14,9 @@ fields:
     bloc_type:
         label: waka.publisher::lang.bloc.bloc_type
         type: relation
-    contents:
-        label: waka.publisher::lang.bloc.contentq
+        default: 2
+    contents@update:
+        label: waka.publisher::lang.bloc.version
         type: partial
         path: field_contents
+        dependsOn: bloc_type

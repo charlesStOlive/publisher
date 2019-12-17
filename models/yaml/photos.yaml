@@ -3,6 +3,10 @@
 # ===================================
 
 fields:
+    sector:
+        label: waka.publisher::lang.content.sector
+        type: dropdown
+        options: listNestedSector
     data: 
         label: waka.publisher::lang.objtext.data
         type: repeater
@@ -14,9 +18,9 @@ fields:
                     label: waka.publisher::lang.objtext.value
                     type: textarea
                     size: small
-                jump:
-                    label: waka.publisher::lang.objtext.jump
-                    type: checkbox
+                path:
+                    label: waka.publisher::lang.document.path
+                    type: mediafinder
 
             
 

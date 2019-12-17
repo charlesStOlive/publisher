@@ -86,6 +86,7 @@ class Content extends Model
 
     public function filterFields($fields, $context = null)
     {
+        trace_log('context : '. $context);
         if (($context == 'createBase') || ($context == 'updateBase')) {
             $fields->sector->hidden = true;
         } 

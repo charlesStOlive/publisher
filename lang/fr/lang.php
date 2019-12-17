@@ -13,7 +13,8 @@ return [
         'bloc_name' => 'Nom',
         'bloc_name_ex' => 'Liaison avec le document',
         'bloc_type' => 'Type de contenu',
-        'code' => 'code'
+        'code' => 'Code',
+        'version' => 'Les versions',
     ],
     'bloc_name' => [
         'name' => 'Intitulé',
@@ -42,11 +43,16 @@ return [
         'data_prompt' => "Cliquez ici pour ajouter un paragraphe",
         'value' => 'Paragraphe',
         'jump' => 'Saut de ligne entre les deux paragraphes',
-        
     ],
     'content' => [
         'name' => 'Contenu',
         'sector' => "Secteur",
         'sector_placeholder' => 'Choisissez un secteur',
+        'versions' => 'Les versions',
+        'add_version' => 'Nouvelle version',
+        'add_base' => 'Créer le contenu de base',
+        'create_content' => 'Créer votre contenu',
+        'version_for_sector' => 'Version pour le secteur : ',
     ],
+    
 ];

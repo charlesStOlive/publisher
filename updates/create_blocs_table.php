@@ -20,11 +20,6 @@ class CreateBlocsTable extends Migration
 
             $table->integer('bloc_type_id')->unsigned();  
 
-            $table->integer('obj_id')->unsigned()->nullable();
-            $table->string('obj_type')->nullable();  
-
-            $table->integer('personalisation')->nullable();
-
             $table->integer('sort_order')->default(0);
                                     
             $table->softDeletes();

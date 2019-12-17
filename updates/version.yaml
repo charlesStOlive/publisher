@@ -2,8 +2,6 @@
  - create_bloc_types_table.php
  - create_blocs_table.php
  - create_documents_table.php 
- - create_obj_photos_table.php
- - create_obj_texts_table.php
  - create_contents_table.php
  - seed_tables.php
   

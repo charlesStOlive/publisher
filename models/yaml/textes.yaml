@@ -7,11 +7,9 @@ fields:
         label: waka.publisher::lang.content.sector
         type: dropdown
         options: listNestedSector
-    
     data: 
         label: waka.publisher::lang.objtext.data
         type: repeater
-        minItems: 1
         prompt: waka.publisher::lang.objtext.data_prompt
         form:
             fields:
@@ -19,6 +17,6 @@ fields:
                     label: waka.publisher::lang.objtext.value
                     type: textarea
                     size: small
-                path:
-                    label: waka.publisher::lang.document.path
-                    type: mediafinder
+                jump:
+                    label: waka.publisher::lang.objtext.jump
+                    type: checkbox

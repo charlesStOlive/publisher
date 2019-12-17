@@ -1,13 +1,3 @@
 <div id="contentList">
-    <div>
-        <?= $this->makePartial('content_list', ['contents' => $model->contents]) ?>
-    </div>
-    <?php  if(!count($model->contents)>0) { ?>
-    <p>
-        <a href="javascript:;" class="btn btn-secondary oc-icon-plus" data-control="popup"
-            data-handler="onLoadCreateContentForm" data-size="large">
-            Add new version
-        </a>
-        <?php } ?>
-    </p>
+    <?= $this->makePartial('content_list', ['contents' => $model->contents, 'bloc_type' => $model->bloc_type]) ?>
 </div>

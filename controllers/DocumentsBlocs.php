@@ -11,8 +11,6 @@ class DocumentsBlocs extends Controller
     public $implement = [
         'Backend.Behaviors.FormController',
         'Backend.Behaviors.RelationController',
-        'Waka.Publisher.Behaviors.BlocObjText',
-        'Waka.Informer.Behaviors.PopupInfo',
         
     ];
     public $formConfig = 'config_form.yaml';
@@ -28,7 +26,7 @@ class DocumentsBlocs extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents-blocsBlocsblocs');
+        BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents-blocs');
         //$this->morphOneWidget = $this->createMorphOneFormWidget();
     }
 

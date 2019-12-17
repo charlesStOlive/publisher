@@ -1,5 +1,5 @@
-<?php if (count($contents)): ?>
 <div>
+    <?php if(count($contents)) { ?>
     <div class="list-preview list-flush">
         <div class="control-list">
             <table class="table data" data-control="rowlink">
@@ -15,16 +15,19 @@
                     <tr>
                         <td>
                             <?php
+                        $sendContext = 'updateBase';
                         if($content->sector) {
+                            $sendContext = 'updateVersion';
                             echo "Version pour le secteur : ".e($content->sector->name);
                         } else {
                             echo "Version de base";
                         } ?>
                         </td>
                         <td class="nolink text-right">
-                            <a href="javascript:;" data-control="popup" data-handler="onLoadUpdateContentForm"
-                                data-request-data="record_id: '<?= $content->id ?>'" class="icon-pencil"
-                                data-toggle="tooltip" title="Update"></a>
+                            <a href="javascript:;" data-control="popup"
+                                data-handler="onLoadUpdate<?=studly_case($bloc_type->code)?>Form"
+                                data-request-data="context:'<?=$sendContext?>' , record_id: '<?= $content->id ?>'"
+                                class=" icon-pencil" data-toggle="tooltip" title="Update"></a>
                         </td>
                         <?php if($content->sector) { ?>
                         <td class="nolink text-right">
@@ -41,16 +44,18 @@
         </div>
     </div>
     <p>
-        <a href="javascript:;" class="btn btn-secondary oc-icon-plus" data-control="popup"
-            data-handler="onLoadCreateContentForm" data-size="large">
-            <?php 
-        if(count($contents)) {
-            echo 'Add new version';
-        } else {
-            echo 'Create content';
-        } ?>
+        <a href="javascript:;" class="btn btn-secondary oc-icon-plus" data-request-data="context:'createVersion'"
+            data-control="popup" data-handler="onLoadCreate<?=studly_case($bloc_type->code)?>Form" data-size="large">
+            <?=e(trans('waka.publisher::lang.content.add_version'))?> <?=$bloc_type->name?>
         </a>
     </p>
+    <?php } else { ?>
+    <p>
+        <a href="javascript:;" class="btn btn-secondary oc-icon-plus" data-request-data="context:'createBase'"
+            data-control="popup" data-handler="onLoadCreate<?=studly_case($bloc_type->code)?>Form" data-size="large">
+            <?=e(trans('waka.publisher::lang.content.add_base'))?> <?=$bloc_type->name?>
+        </a>
+    </p>
+    <?php } ?>
 
 </div>
-<?php endif ?>
