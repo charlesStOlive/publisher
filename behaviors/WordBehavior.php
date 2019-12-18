@@ -21,8 +21,12 @@ class WordBehavior extends ControllerBehavior
      //ci dessous tous les calculs pour permettre l'import excel. 
     public function onLoadWordBehaviorForm()
     {
-        $modelId = post('id');
-        $this->vars['modelId'] = $modelId;
+        $id = post('id');
+        //
+        $wp = new WordCreator($id);
+        trace_log($wp->readContent());
+        //
+        $this->vars['modelId'] = $id;
         $this->vars['wordBehaviorWidget'] = $this->createWordBehaviorWidget();
         //return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_my_form.htm');
         return true;
