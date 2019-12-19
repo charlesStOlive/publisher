@@ -3,16 +3,17 @@
 # ===================================
 
 fields:
+    title:
+        type: informfield
+        valueFrom: name
+        cssClass: col-xs-12
     name:
         label: waka.publisher::lang.document.name
-        span: auto
-    slug:
-        label: waka.utils::lang.global.slug
-        preset: name
-        span: auto
+        span: auto 
     path:
         label: waka.publisher::lang.document.path
         type: mediafinder
+        span: auto 
     # has_sectors_perso:
     #     label: waka.publisher::lang.document.has_sectors_perso
     #     type: checkbox

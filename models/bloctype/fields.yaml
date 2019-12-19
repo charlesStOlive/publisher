@@ -13,10 +13,10 @@ fields:
             raw: waka.publisher::lang.bloc_type.type_raw
     code:
         label: waka.publisher::lang.bloc_type.code
-    model:
-        label: waka.publisher::lang.bloc_type.model
-    ajax_method:
-        label: waka.publisher::lang.bloc_type.ajax_method
+    compiler:
+        label: waka.publisher::lang.bloc_type.compiler
+    # ajax_method:
+    #     label: waka.publisher::lang.bloc_type.ajax_method
     icon:
         label: waka.utils::lang.global.icon
         type: dropdown

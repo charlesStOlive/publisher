@@ -7,14 +7,26 @@ columns:
     sort_order:
         label: waka.utils::lang.global.sort_order
         invisible: true
-    name:
-        label: waka.publisher::lang.bloc.name
-        searchable: true
-    action:
+    icon:
         label: ' '
+        type: partial
+        path: $/waka/publisher/models/bloc/_icon.htm
+        width: '25px'
+        sortable: false
+    inform:
+        type: waka-icon-info
+        width: 25px
+        label : ' '
+        launch_request: true
+        show_null: true
         clickable: false
         searchable: false
         sortable: false
-        width: 25px
-        type: 'partial'
-        path: 'btn_action'
+    name:
+        label: waka.publisher::lang.bloc.name
+        searchable: true
+    
+    
+    updated_at:
+        label: waka.utils::lang.global.updated_at
+        type: timetense

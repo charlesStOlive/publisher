@@ -11,6 +11,8 @@ class Bloc extends Model
     use \October\Rain\Database\Traits\SoftDelete;
     use \October\Rain\Database\Traits\Sortable;
 
+    use \Waka\Informer\Classes\Traits\InformerTrait;
+
     /**
      * @var string The database table used by the model.
      */
@@ -78,14 +80,20 @@ class Bloc extends Model
         'obj' => [],
     ];
     public $morphOne = [];
-    public $morphMany = [];
+    public $morphMany = [
+        'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable']
+    ];
     public $attachOne = [];
     public $attachMany = [];
 
     /**
      * EVENT
      */
-
+    public function afterCreate() {
+        if(!count($this->contents)>0) {
+            $this->record_inform('problem', 'le bloc est vide !' );
+        } 
+    }
     /**
      * GET
      */

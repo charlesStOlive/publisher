@@ -35,9 +35,8 @@ class BlocType extends Model
         'name'  => 'required',
         'code'  => 'required',
         'type'  => 'required',
-        'model' => 'required',
+        'compiler' => 'required',
         'icon'  => 'required',
-        'ajax_method' => 'required',
     ];
 
     /**

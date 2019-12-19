@@ -14,6 +14,9 @@ class Document extends Model
     //
     use \Waka\Informer\Classes\Traits\InformerTrait;
 
+    use \October\Rain\Database\Traits\Sluggable;
+    protected $slugs = ['slug' => 'name'];
+
     /**
      * @var string The database table used by the model.
      */

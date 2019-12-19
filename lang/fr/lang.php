@@ -34,6 +34,7 @@ return [
         'ajax_method' => 'Méthode Ajax',
     ],
     'document' => [
+        'name' => 'Nom',
         'path' => 'Fichier source',
         'analyze' => "Log d'analyse des codes du fichier source",
         'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur'

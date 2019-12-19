@@ -37,6 +37,19 @@ class Documents extends Controller
         BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents');
         
     }
+
+    // public function relationExtendRefreshResults($field)
+    // {
+    //     $blocs = \Waka\Publisher\Models\Document::find($this->params[0])->blocs;
+    //     foreach($blocs as $bloc) {
+    //         trace_log($bloc->name);
+    //         trace_log(count($bloc->contents));
+    //         if(count($bloc->contents)) {
+    //             $bloc->delete_informs();
+    //         } else {
+    //         }
+    //     }
+    // } 
     
 
     public function onCreateItem()
@@ -45,6 +58,7 @@ class Documents extends Controller
 
         $data = post($bloc->bloc_type->code.'Form');
         $sk = post('_session_key');
+        $bloc->delete_informs();
 
         $model = new \Waka\Publisher\Models\Content;
         $model->fill($data);

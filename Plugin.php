@@ -103,16 +103,24 @@ class Plugin extends PluginBase
                         'icon'        => 'icon-building',
                         'url'         => Backend::url('waka/publisher/documents'),
                     ],
-                    'side-menu-blocs' => [
-                        'label'       => Lang::get('waka.publisher::lang.menu.blocs'),
-                        'icon'        => 'icon-users',
-                        'url'         => Backend::url('waka/publisher/blocs'),
-                    ],
+                    // 'side-menu-blocs' => [
+                    //     'label'       => Lang::get('waka.publisher::lang.menu.blocs'),
+                    //     'icon'        => 'icon-users',
+                    //     'url'         => Backend::url('waka/publisher/blocs'),
+                    // ],
                     'side-menu-bloc-type' => [
                         'label'       => Lang::get('waka.publisher::lang.menu.bloc_type'),
                         'icon'        => 'icon-users',
                         'url'         => Backend::url('waka/publisher/bloctypes'),
                     ],
+                    'side-menu-modelsrcs' => [
+                        'label'       => Lang::get('waka.utils::lang.settings_ds.label'),
+                        'description' => Lang::get('waka.utils::lang.settings_ds.description'),
+                        'category'    => Lang::get('waka.utils::lang.settings_ds.category'),
+                        'icon'        => 'icon-paper-plane',
+                        'url'         => Backend::url('waka/utils/modelsrcs'),
+                        'order'       => 1,
+                    ]
                 ]
                 
             ],

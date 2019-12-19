@@ -94,4 +94,7 @@ class Content extends Model
             $fields->sector->hidden = false;
         }
     }
+    public function afterSave() {
+        trace_log("after save content");
+    }
 }
