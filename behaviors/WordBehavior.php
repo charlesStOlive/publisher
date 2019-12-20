@@ -4,8 +4,10 @@ use Backend\Classes\ControllerBehavior;
 use October\Rain\Exception\ApplicationException;
 use Waka\Publisher\Models\Document;
 use Waka\Publisher\Classes\WordCreator;
+use Waka\Publisher\Classes\WordProcessor;
 use Flash;
 use Lang;
+use Redirect;
 
 class WordBehavior extends ControllerBehavior
 {
@@ -23,22 +25,38 @@ class WordBehavior extends ControllerBehavior
     {
         $id = post('id');
         //
-        $wp = new WordCreator($id);
-        trace_log($wp->readContent());
+        $tags = $this->checkWord($id);  
         //
-        $this->vars['modelId'] = $id;
-        $this->vars['wordBehaviorWidget'] = $this->createWordBehaviorWidget();
-        //return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_my_form.htm');
-        return true;
+        
+        // $this->vars['modelId'] = $id;
+        // $this->vars['wordBehaviorWidget'] = $this->createWordBehaviorWidget();
+        // return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_my_form.htm');
+        //return true;
+        return Redirect::to('/backend/waka/publisher/documents/makeword/'.$id);
     }
 
-    public function onTestWordValidation(){
-        $id = post('modelId');
-        trace_log($id);
-        $wp = new WordCreator($id);
-        trace_log($wp->readContent());
-        return true;
+    public function makeword($id){
+        $tags = $this->checkWord($id);
+        $wc = new WordCreator($id);
+        return $wc->renderWord($tags);   
+    }
 
+    public function CheckWord($id){
+        $returnTag = WordProcessor::checkTags($id);
+        $model = Document::find($id);
+        if($model->has_informs('problem')) {
+            Flash::error('Le document à des erreurs');
+            return Redirect::refresh();
+        } else {
+            foreach($model->blocs as $bloc) {
+                if($bloc->has_informs('problem')) {
+                    Flash::error('Le document à des erreurs');
+                    return Redirect::refresh();
+                }
+            }
+
+        }
+        return $returnTag;
     }
     public function createWordBehaviorWidget() {
 

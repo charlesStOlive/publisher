@@ -113,14 +113,6 @@ class Plugin extends PluginBase
                         'icon'        => 'icon-users',
                         'url'         => Backend::url('waka/publisher/bloctypes'),
                     ],
-                    'side-menu-modelsrcs' => [
-                        'label'       => Lang::get('waka.utils::lang.settings_ds.label'),
-                        'description' => Lang::get('waka.utils::lang.settings_ds.description'),
-                        'category'    => Lang::get('waka.utils::lang.settings_ds.category'),
-                        'icon'        => 'icon-paper-plane',
-                        'url'         => Backend::url('waka/utils/modelsrcs'),
-                        'order'       => 1,
-                    ]
                 ]
                 
             ],

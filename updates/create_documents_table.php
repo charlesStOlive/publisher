@@ -15,12 +15,7 @@ class CreateDocumentsTable extends Migration
             $table->string('slug');
 
             $table->string('path');
-            // $table->text('analyze')->nullable();
-            // $table->string('state_info')->nullable();
-            
-
-
-            $table->boolean('has_sectors_perso')->default(false);
+            $table->integer('data_source_id')->unsigned()->nullable();
                                     
             $table->integer('sort_order')->default(0);
                                     

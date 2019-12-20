@@ -7,10 +7,6 @@ columns:
     sort_order:
         label: waka.utils::lang.global.sort_order
         invisible: true
-    
-    name:
-        label: waka.publisher::lang.document.name
-        searchable: true
     inform:
         type: waka-icon-info
         width: 25px
@@ -20,6 +16,13 @@ columns:
         clickable: false
         searchable: false
         sortable: false
+    name:
+        label: waka.publisher::lang.document.name
+        searchable: true
+    data_src:
+        label: waka.publisher::lang.document.data_source
+        relation: data_source
+        select: name
     updated_at:
         label: waka.utils::lang.global.updated_at
         type: timetense

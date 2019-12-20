@@ -35,7 +35,11 @@ class Document extends Model
     /**
      * @var array Validation rules for attributes
      */
-    public $rules = [];
+    public $rules = [
+        'path' => 'required',
+        'data_source' => 'required',
+        'name' => 'required',
+    ];
 
     /**
      * @var array Attributes to be cast to native types
@@ -73,7 +77,9 @@ class Document extends Model
     public $hasMany = [
         'blocs' => ['Waka\Publisher\Models\Bloc']
     ];
-    public $belongsTo = [];
+    public $belongsTo = [
+        'data_source' => ['Waka\Utils\Models\DataSource']
+    ];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
@@ -85,15 +91,10 @@ class Document extends Model
 
     public function afterCreate()
     {
-        
         $tags = WordProcessor::checkTags($this->id, 'create');
     }
     public function beforeSave()
     {
-        //$this->state_info = 'warning';
-        if($this->id) {
-            $tags = WordProcessor::checkTags($this->id);
-        }
         
     }
     //

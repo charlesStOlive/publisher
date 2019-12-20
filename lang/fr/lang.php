@@ -37,7 +37,9 @@ return [
         'name' => 'Nom',
         'path' => 'Fichier source',
         'analyze' => "Log d'analyse des codes du fichier source",
-        'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur'
+        'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur',
+        'data_source' => ' Sources des données',
+        'data_source_placeholder' => 'Choisissez une source de données'
     ],
     'objtext' => [
         'data' => 'Paragraphes',

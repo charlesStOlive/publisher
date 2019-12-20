@@ -38,6 +38,12 @@ class Documents extends Controller
         
     }
 
+    public function onTestList() {
+        $model = \Waka\Publisher\Models\Document::find($this->params[0]);
+        trace_log($model->data_source->listApi());
+    }
+
+
     // public function relationExtendRefreshResults($field)
     // {
     //     $blocs = \Waka\Publisher\Models\Document::find($this->params[0])->blocs;
@@ -84,6 +90,7 @@ class Documents extends Controller
         return $this->refreshOrderItemList($sk);
     }
 
+    
 
     public function onDeleteItem()
     {

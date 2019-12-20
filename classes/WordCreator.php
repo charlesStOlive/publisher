@@ -15,14 +15,16 @@ Class WordCreator {
     private $document;
     private $templatePocessor;
     public $sector;
-    public $wordCollection;
+    public $apiBlocs;
+    public $apiInjections;
+    public $originalTags;
 
 
-    function __construct($id)
+    function __construct($id, $targetId=null)
     {
         $this->id = $id;
+        $this->targetId = $targetId;
         $this->createProcessor($id);
-        $this->wordCollection = new Collection();
     }
 
     private function createProcessor() {
@@ -30,15 +32,67 @@ Class WordCreator {
         $path = $this->getPath($this->document);
         $this->templateProcessor = new TemplateProcessor($path);
     }
+    public function prepareVars() {
+        $this->apiBlocs = $this->getApiBlocs(); 
+        $this->apiInjections = $this->getApiInjections();
+    }
+    public function renderWord($originalTags) {
+        $this->prepareVars();
+        //Traitement des champs simples
+        foreach($originalTags['injections'] as $injection) {
+            $value = $this->apiInjections[$injection];
+            trace_log($injection." = ".$value);
+            $this->templateProcessor->setValue($injection, $value);
+        }
+        //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
+        foreach($this->apiBlocs as $key => $rows) {
+            $count = count($rows);
+            trace_log($count);
+            trace_log($key);
+            trace_log($rows);
+            trace_log("foreach---------------------------");
+            $this->templateProcessor->cloneBlock($key, $count, true);
+            foreach($rows as $row) {
+                trace_log($row);
+                trace_log("--------foreachkey------------------------");
+                foreach($row as $cle => $data) {
+                    trace_log($cle);
+                    trace_log($data);
+                    if($cle == 'image') {
+                        $this->templateProcessor->setImageValue($cle, $data, 1);
+                    } else {
+                        $this->templateProcessor->setValue($cle, $data, 1);
+                    }
+                }  
+            }
+        }
+        $coin = $this->templateProcessor->saveAs('temp.docx');
+        trace_log("ready to return");
+        return response()->download('temp.docx')->deleteFileAfterSend(true);
+    }
 
-    public function readContent() {
+    public function testWord() {
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/media/template_textes_photos.docx'));
+        $templateProcessor->setValue('name', 'John');
+        $templateProcessor->setValue('surname', 'Doe');
+        $templateProcessor->saveAs('temp.docx');
+        trace_log("c est la merde");
+        return response()->download('temp.docx')->deleteFileAfterSend(true);
+    }
+
+    public function getApiBlocs() {
         $doc = $this->document;
+        $compiledBlocs = [];
         foreach($doc->blocs as $bloc) {
             $tag = $this->rebuildTag($bloc);
             $datas = $this->launchCompiler($bloc);
-            $this->wordCollection->put($tag , $datas);
+            $compiledBlocs[$tag] = $datas;
         }
-        trace_log($this->wordCollection);
+        return $compiledBlocs;
+    }
+
+    public function getApiInjections() {
+        return $this->document->data_source->listApi();
     }
 
     private function rebuildTag($bloc) {

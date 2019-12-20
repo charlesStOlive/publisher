@@ -17,7 +17,7 @@ Class Photos {
             foreach($content->data as $sub) {
                 $obj = new stdClass();
                 $obj->value = $sub['value'];
-                $obj->images = [
+                $obj->image = [
                     'path' => self::getImage($sub['path']),
                     'widfth' => '16cm',
                     'heignt' => '7cm',
