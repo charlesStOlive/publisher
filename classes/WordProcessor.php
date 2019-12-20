@@ -9,6 +9,7 @@ use Waka\Informer\Models\Inform;
 use Storage;
 use ApplicationException;
 use AjaxException;
+use Lang;
 
 Class WordProcessor {
 
@@ -31,7 +32,7 @@ Class WordProcessor {
         self::$document = $document;
         // tous les champs qui ne sont pas des blocs ou des raw devront avoir ce type
         self::$dataSourceName = snake_case($document->data_source->model);
-        self::$blocFormatAccepted = ['raw', 'bloc', self::$dataSourceName];
+        self::$blocFormatAccepted = ['row', 'bloc', self::$dataSourceName];
     }
 
     /**
@@ -55,8 +56,10 @@ Class WordProcessor {
      */
     public static function filterTags($tags) {
         self::$document->delete_informs();
+        //tablaux de tags pour les blocs, les injections et les rows
         $blocs = [];
         $injections = [];
+        $rows = [];
         $insideBlock = false; 
         foreach($tags as $tag) {
             // Si un / est détécté c'est une fin de bloc. on enregistre pas ce bloc.
@@ -72,16 +75,15 @@ Class WordProcessor {
             }
             $parts = explode('.', $tag);
             if(count($parts)<=1) {
-                self::$document->record_inform('problem', 'code mal formaté, non utilisé : '.$tag );
+                self::$document->record_inform('problem', Lang::get('waka.publisher::lang.word.processor.bad_format').' : '.$tag);
                 continue;
             } 
             $blocFormat = array_shift($parts);
             $blocType = array_shift($parts);
             $blocCode = implode( ".", $parts ); 
-            //self::$document->record_inform('temp', $tag );
+            //
             if(!in_array($blocFormat, self::$blocFormatAccepted)) {
-                trace_log("Pas in array");
-                self::$document->record_inform('problem', 'les tags de CE document doivent commencer par : '.implode(", ", self::$blocFormatAccepted).' => '.$tag );
+                self::$document->record_inform('problem', Lang::get('waka.publisher::lang.word.processor.bad_tag').' : '.implode(", ", self::$blocFormatAccepted).' => '.$tag );
                 continue;
             }
             if($blocFormat == self::$dataSourceName) {
@@ -90,11 +92,11 @@ Class WordProcessor {
                 continue;
             } 
             if(!$blocType || !$blocCode ) {
-                self::$document->record_inform('warning', 'code mal formaté, non utilisé : '.$tag );
+                self::$document->record_inform('warning', Lang::get('waka.publisher::lang.word.processor.bad_format').' : '.$tag );
                 continue;
             }
             if(!self::returnBlocTypeId($blocType)) {
-                self::$document->record_inform('warning', 'type de bloc inexistant : '.$tag );
+                self::$document->record_inform('warning', Lang::get('waka.publisher::lang.word.processor.type_not_exist').' : '.$tag );
                 continue;
             }
             // on commence un bloc
@@ -114,7 +116,7 @@ Class WordProcessor {
     public static function checkInjection($tag) {
         $ModelVarArray = self::$document->data_source->listApi();
         if(!array_key_exists($tag, $ModelVarArray)) {
-            self::$document->record_inform('problem', "Cette information n'existe pas : ".$tag );
+            self::$document->record_inform('problem', Lang::get('waka.publisher::lang.word.processor.field_not_existe').' : '.$tag );
             return false;
         } else {
             return true;
@@ -125,7 +127,6 @@ Class WordProcessor {
      */
     public static function createBLocs($blocs) {
         if(count(self::$document->blocs) == 0) {
-            trace_log("il n' a pas encore de bloc");
             foreach($blocs as $bloc) {
                 self::createBloc($bloc); 
             } 
@@ -147,11 +148,9 @@ Class WordProcessor {
         $bloc = new Bloc();
         $bloc->code = $_bloc->code;
         
-
         $bloc->bloc_type =  BlocType::find(self::returnBlocTypeId($_bloc->type));
         $bloc->name = $_bloc->code.' '.self::$increment++;
         $bloc->ready = 'ok';
-        //trace_log($bloc->toArray());
         self::$document->blocs()->add($bloc);
     }
 
@@ -163,8 +162,6 @@ Class WordProcessor {
                             ->where('bloc_type_id','=', $type_id)->first();
         return $blocExiste;
     }
-
-
 
     public static function returnBlocTypeId($name) {
         $blocTypes= self::$bloc_types;
@@ -178,9 +175,9 @@ Class WordProcessor {
      * 
      */
     public static function getPath($document) {
-        if(!isset($document)) throw new ApplicationException("L'id du document n'existe pas");
+        if(!isset($document)) throw new ApplicationException(Lang::get('waka.publisher::lang.word.processor.id_not_exist'));
         $existe = Storage::exists('media'. $document->path);
-        if(!$existe) throw new ApplicationException("Le document n'existe pas");
+        if(!$existe) throw new ApplicationException(Lang::get('waka.publisher::lang.word.processor.document_not_exist'));
         return storage_path('app/media'. $document->path);
     }
 }

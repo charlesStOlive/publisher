@@ -57,5 +57,15 @@ return [
         'create_content' => 'Créer votre contenu',
         'version_for_sector' => 'Version pour le secteur : ',
     ],
+    'word' => [
+        'processor' => [
+            'bad_format' =>'Fromat du tag incorrect',
+            'bad_tag' =>'Le type de tag est incorrect',
+            'type_not_exist' =>"Ce type de tag n'existe pas",
+            'field_not_existe' =>"Le champs n'existe pas",
+            'id_not_exist' =>"L'id n'existe pas",
+            'document_not_exist' =>" La source du document n'a pas été trouvé",
+        ]
+    ]
     
 ];
