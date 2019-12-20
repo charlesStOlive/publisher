@@ -89,34 +89,28 @@ class Plugin extends PluginBase
      */
     public function registerNavigation()
     {
+        return[];
 
+    }
+    public function registerSettings()
+    {
         return [
-            'publisher' => [
-                'label'       => Lang::get('waka.publisher::lang.menu.title'),
+            'documents' => [
+                'label'       => Lang::get('waka.publisher::lang.menu.documents'),
+                'description' => Lang::get('waka.publisher::lang.menu.documents_description'),
+                'category'    => Lang::get('waka.publisher::lang.menu.settings_category'),
+                'icon'        => 'icon-file-word-o',
                 'url'         => Backend::url('waka/publisher/documents'),
-                'icon'        => 'icon-leaf',
-                'permissions' => ['waka.publisher.*'],
-                'order'       => 500,
-                'sideMenu' => [
-                    'side-menu-documents' => [
-                        'label'       => Lang::get('waka.publisher::lang.menu.documents'),
-                        'icon'        => 'icon-building',
-                        'url'         => Backend::url('waka/publisher/documents'),
-                    ],
-                    // 'side-menu-blocs' => [
-                    //     'label'       => Lang::get('waka.publisher::lang.menu.blocs'),
-                    //     'icon'        => 'icon-users',
-                    //     'url'         => Backend::url('waka/publisher/blocs'),
-                    // ],
-                    'side-menu-bloc-type' => [
-                        'label'       => Lang::get('waka.publisher::lang.menu.bloc_type'),
-                        'icon'        => 'icon-users',
-                        'url'         => Backend::url('waka/publisher/bloctypes'),
-                    ],
-                ]
-                
+                'order'       => 1,
             ],
-            
+            'bloc_types' => [
+                'label'       => Lang::get('waka.publisher::lang.menu.bloc_type'),
+                'description' => Lang::get('waka.publisher::lang.menu.bloc_type_description'),
+                'category'    => Lang::get('waka.publisher::lang.menu.settings_category'),
+                'icon'        => 'icon-th-large',
+                'url'         => Backend::url('waka/publisher/bloctypes'),
+                'order'       => 1,
+            ]
         ];
     }
 }

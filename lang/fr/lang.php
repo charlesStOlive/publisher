@@ -3,9 +3,12 @@
 return [
     'menu' => [
         'title' => 'Contenu',
-        'bloc_name' => 'Gestion des blocs',
-        'bloc_type' => 'types',
-        'documents' => 'Documents',
+        'documents' => 'Templates Words',
+        'documents_description' => 'Gestion des templates et de leurs blocs',
+        'bloc_name' => 'Blocs',
+        'bloc_type' => 'types de blocs',
+        'bloc_type_description' => 'Administration des types de blocs et exemples',
+        'settings_category' => 'Wakaari publisher',
     ],
     'bloc' => [
         'name' => 'Intitulé',

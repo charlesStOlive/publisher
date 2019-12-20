@@ -2,6 +2,7 @@
 
 use BackendMenu;
 use Backend\Classes\Controller;
+use System\Classes\SettingsManager;
 use Yaml;
 use File;
 
@@ -34,7 +35,9 @@ class Documents extends Controller
     {
         parent::__construct();
 
-        BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents');
+        //BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents');
+        BackendMenu::setContext('October.System', 'system', 'settings');
+        SettingsManager::setContext('Waka.Publisher', 'documents');
         
     }
 

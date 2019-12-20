@@ -34,7 +34,6 @@ Class WordProcessor {
         self::$dataSourceName = snake_case($document->data_source->model);
         self::$blocFormatAccepted = ['row', 'bloc', self::$dataSourceName];
     }
-
     /**
      * 
      */
@@ -104,7 +103,6 @@ Class WordProcessor {
             $obj = (object)['format' => $blocFormat, 'type' => $blocType, 'code' => $blocCode ];
             array_push($blocs,$obj);
         }
-
         return [
             'blocs' =>$blocs,
             'injections' =>$injections
@@ -143,7 +141,6 @@ Class WordProcessor {
             } 
         }
     }
-
     public static function createBloc($_bloc) {
         $bloc = new Bloc();
         $bloc->code = $_bloc->code;
@@ -153,7 +150,6 @@ Class WordProcessor {
         $bloc->ready = 'ok';
         self::$document->blocs()->add($bloc);
     }
-
     public static function returnBlocModel($_bloc) {
         trace_log('returnBlocModel');
         $type_id = self::returnBlocTypeId($_bloc->type);
