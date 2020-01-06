@@ -7,7 +7,7 @@ use DB;
 
 
 
-class SeedAllTable extends Seeder
+class SeedTables extends Seeder
 {
     public function run()
     {
