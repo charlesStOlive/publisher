@@ -35,6 +35,10 @@ return [
         'code' => "Code d'itentification du bloc",
         'model' => 'Model associé',
         'ajax_method' => 'Méthode Ajax',
+        'use_icon' => 'Utiliser une icone October',
+        'icon_png' => 'Utiliser une icone PNG',
+        'compiler' => 'Model Source du compilateur',
+        'scr_explication' => 'Fichier Word d explication du bloc'
     ],
     'document' => [
         'name' => 'Nom',

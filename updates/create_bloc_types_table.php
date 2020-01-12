@@ -15,7 +15,8 @@ class CreateBlocTypesTable extends Migration
             $table->string('code');
             $table->string('type');
             $table->string('compiler');
-            $table->string('icon');                   
+            $table->boolean('use_icon')->default(0); 
+            $table->string('icon')->nullable();                   
             $table->integer('sort_order')->default(0);
         });
     }

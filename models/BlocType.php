@@ -36,7 +36,6 @@ class BlocType extends Model
         'code'  => 'required',
         'type'  => 'required',
         'compiler' => 'required',
-        'icon'  => 'required',
     ];
 
     /**
@@ -81,6 +80,9 @@ class BlocType extends Model
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [];
-    public $attachOne = [];
+    public $attachOne = [
+        'icon_png' => 'System\Models\File',
+        'src_explication' => 'System\Models\File'
+    ];
     public $attachMany = [];
 }

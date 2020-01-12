@@ -1,13 +1,10 @@
-<?php namespace Waka\Publisher\Classes\Compiler;
+<?php namespace Waka\Publisher\Contents\Compilers;
 
 use stdClass;
-use ToughDeveloper\ImageResizer\Classes\Image as ImageResizer;
 use Storage;
 
-
-Class Photos {
-
-    public static $elem;
+class MediasTextes
+{
 
 
     public static function proceed($contents) {
@@ -19,8 +16,8 @@ Class Photos {
                 $obj->value = $sub['value'];
                 $obj->image = [
                     'path' => self::getImage($sub['path']),
-                    'widfth' => '16cm',
-                    'heignt' => '7cm',
+                    'width' => '16cm',
+                    'height' => '7cm',
                     'ratio' => true
                 ];
                 array_push($datas, $obj);

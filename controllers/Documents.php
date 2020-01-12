@@ -18,8 +18,8 @@ class Documents extends Controller
         'Backend.Behaviors.RelationController',
         'Waka.Informer.Behaviors.PopupInfo',
         'Waka.Publisher.Behaviors.WordBehavior',
-        'Waka.Publisher.Behaviors.ContentTextes',
-        'Waka.Publisher.Behaviors.ContentPhotos',
+        'Waka.Publisher.Contents.ContentTextes',
+        'Waka.Publisher.Contents.ContentMediasTextes',
 
     ];
 

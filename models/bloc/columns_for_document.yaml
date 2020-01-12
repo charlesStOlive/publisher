@@ -13,6 +13,7 @@ columns:
         path: $/waka/publisher/models/bloc/_icon.htm
         width: '25px'
         sortable: false
+        searchable: false
     inform:
         type: waka-icon-info
         width: 25px

@@ -41,23 +41,22 @@ Class WordCreator {
         //Traitement des champs simples
         foreach($originalTags['injections'] as $injection) {
             $value = $this->apiInjections[$injection];
-            trace_log(get_class($this->apiInjections[$injection]));
             $this->templateProcessor->setValue($injection, $value);
         }
         //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
         foreach($this->apiBlocs as $key => $rows) {
             $count = count($rows);
-            trace_log($count);
-            trace_log($key);
-            trace_log($rows);
-            trace_log("foreach---------------------------");
+            // trace_log($count);
+            // trace_log($key);
+            // trace_log($rows);
+            // trace_log("foreach---------------------------");
             $this->templateProcessor->cloneBlock($key, $count, true);
             foreach($rows as $row) {
-                trace_log($row);
-                trace_log("--------foreachkey------------------------");
+                // trace_log($row);
+                // trace_log("--------foreachkey------------------------");
                 foreach($row as $cle => $data) {
-                    trace_log($cle);
-                    trace_log($data);
+                    // trace_log($cle);
+                    // trace_log($data);
                     if($cle == 'image') {
                         $this->templateProcessor->setImageValue($cle, $data, 1);
                     } else {
