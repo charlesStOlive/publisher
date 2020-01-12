@@ -41,7 +41,7 @@ Class WordCreator {
         //Traitement des champs simples
         foreach($originalTags['injections'] as $injection) {
             $value = $this->apiInjections[$injection];
-            trace_log($injection." = ".$value);
+            trace_log(get_class($this->apiInjections[$injection]));
             $this->templateProcessor->setValue($injection, $value);
         }
         //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
@@ -67,7 +67,6 @@ Class WordCreator {
             }
         }
         $coin = $this->templateProcessor->saveAs('temp.docx');
-        trace_log("ready to return");
         return response()->download('temp.docx')->deleteFileAfterSend(true);
     }
 
@@ -76,7 +75,6 @@ Class WordCreator {
         $templateProcessor->setValue('name', 'John');
         $templateProcessor->setValue('surname', 'Doe');
         $templateProcessor->saveAs('temp.docx');
-        trace_log("c est la merde");
         return response()->download('temp.docx')->deleteFileAfterSend(true);
     }
 
