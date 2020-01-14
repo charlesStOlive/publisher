@@ -1,43 +1,41 @@
 <?php namespace Waka\Publisher\Classes;
 
-use \PhpOffice\PhpWord\TemplateProcessor;
-use Waka\Publisher\Models\Document;
-use Waka\Publisher\Models\Content;
 
+use Waka\Publisher\Models\Content;
+use October\Rain\Support\Collection;
 use Storage;
 use ApplicationException;
 use AjaxException;
-use October\Rain\Support\Collection;
+use Lang;
+use Redirect;
+use Flash;
 
-Class WordCreator {
+Class WordCreator extends WordProcessor {
 
-    private $id;
-    private $document;
-    private $templatePocessor;
-    public $sector;
-    public $apiBlocs;
-    public $apiInjections;
-    public $originalTags;
+    private $dataSourceModel;
+    private $dataSourceId;
 
-
-    function __construct($id, $targetId=null)
-    {
-        $this->id = $id;
-        $this->targetId = $targetId;
-        $this->createProcessor($id);
-    }
-
-    private function createProcessor() {
-        $this->document = Document::find($this->id);
-        $path = $this->getPath($this->document);
-        $this->templateProcessor = new TemplateProcessor($path);
-    }
-    public function prepareVars() {
+    
+    public function prepareCreatorVars($dataSourceId) {
+        $this->dataSourceModel = $this->linkModelSource($dataSourceId);
         $this->apiBlocs = $this->getApiBlocs(); 
         $this->apiInjections = $this->getApiInjections();
     }
-    public function renderWord($originalTags) {
-        $this->prepareVars();
+    private function linkModelSource($dataSourceId) {
+        $this->dataSourceId = $dataSourceId;
+        // si vide on puise dans le test
+        if(!$this->dataSourceId) $this->dataSourceId = $this->document->data_source->test_id;
+        //on enregistre le modèle
+        return $this->document->data_source->modelClass::find($this->dataSourceId);
+    }
+    public function renderWord($dataSourceId) {
+        $this->prepareCreatorVars($dataSourceId);
+        $originalTags = $this->checkTags();
+        if($this->errors()) {
+            Flash::error(Lang::get('waka.publisher::lang.word.processor.errors'));
+            return Redirect::back();
+            
+        }
         //Traitement des champs simples
         foreach($originalTags['injections'] as $injection) {
             $value = $this->apiInjections[$injection];
@@ -46,34 +44,26 @@ Class WordCreator {
         //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
         foreach($this->apiBlocs as $key => $rows) {
             $count = count($rows);
-            // trace_log($count);
-            // trace_log($key);
-            // trace_log($rows);
-            // trace_log("foreach---------------------------");
-            $this->templateProcessor->cloneBlock($key, $count, true);
+            //trace_log("foreach---------------------------".$key.' count '.$count);
+            $this->templateProcessor->cloneBlock($key, $count, true, true);
+            $i=1;
             foreach($rows as $row) {
                 // trace_log($row);
-                // trace_log("--------foreachkey------------------------");
+                //trace_log("--------foreachkey------------------------");
                 foreach($row as $cle => $data) {
-                    // trace_log($cle);
+                    // trace_log($cle.'#'.$i);
                     // trace_log($data);
                     if($cle == 'image') {
-                        $this->templateProcessor->setImageValue($cle, $data, 1);
+                        $this->templateProcessor->setImageValue($cle.'#'.$i, $data, 1);
                     } else {
-                        $this->templateProcessor->setValue($cle, $data, 1);
+                        $this->templateProcessor->setValue($cle.'#'.$i, $data, 1);
                     }
+                    
                 }  
+                $i++;
             }
         }
         $coin = $this->templateProcessor->saveAs('temp.docx');
-        return response()->download('temp.docx')->deleteFileAfterSend(true);
-    }
-
-    public function testWord() {
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/media/template_textes_photos.docx'));
-        $templateProcessor->setValue('name', 'John');
-        $templateProcessor->setValue('surname', 'Doe');
-        $templateProcessor->saveAs('temp.docx');
         return response()->download('temp.docx')->deleteFileAfterSend(true);
     }
 
@@ -89,7 +79,7 @@ Class WordCreator {
     }
 
     public function getApiInjections() {
-        return $this->document->data_source->listApi();
+        return $this->document->data_source->listApi($this->dataSourceId);
     }
 
     private function rebuildTag($bloc) {
@@ -109,42 +99,6 @@ Class WordCreator {
         $content = $this->selectBloc($bloc->contents());
         //A partir du champs compiler de bloc_type on cherche la classe qui gère le bloc en question.
         $compiler = new $bloc_type->compiler;
-        return $compiler::proceed($content);        
-    }
-    
-
-
-    
-    /**
-     * 
-     */
-    private function returnBlocModel($_bloc) {
-        trace_log('returnBlocModel');
-        $type_id = self::returnBlocTypeId($_bloc->type);
-        $blocExiste = Bloc::where('document_id', '=' ,self::$document_id)
-                            ->where('code','=', $_bloc->code)
-                            ->where('bloc_type_id','=', $type_id)->first();
-        return $blocExiste;
-    }
-    /**
-     * 
-     */
-    private function returnBlocTypeId($name) {
-        $blocTypes= self::$bloc_types;
-        $id = null;
-        foreach($blocTypes as $blocType ) {
-            trace_log($blocType->code.' = '.$name);
-            if($blocType->code == $name ) $id = $blocType->id; 
-        }
-        return $id;
-    }
-    /**
-     * 
-     */
-    private function getPath($document) {
-        if(!isset($document)) throw new ApplicationException("L'id du document n'existe pas");
-        $existe = Storage::exists('media'. $document->path);
-        if(!$existe) throw new ApplicationException("Le document n'existe pas");
-        return storage_path('app/media'. $document->path);
+        return $compiler->proceed($content, $this->dataSourceModel);        
     }
 }

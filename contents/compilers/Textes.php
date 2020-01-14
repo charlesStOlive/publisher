@@ -6,7 +6,7 @@ class Textes
 {
 
 
-    public static function proceed($contents) {
+    public function proceed($contents, $dataSourceModel) {
         $datas= [];
         foreach($contents as $content ) {
             foreach($content->data as $sub) {

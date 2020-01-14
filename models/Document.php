@@ -91,7 +91,8 @@ class Document extends Model
 
     public function afterCreate()
     {
-        $tags = WordProcessor::checkTags($this->id, 'create');
+        $wp = new WordProcessor($this->id);
+        $wp->checkTags();
     }
     public function beforeSave()
     {

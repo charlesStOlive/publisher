@@ -20,6 +20,7 @@ class Documents extends Controller
         'Waka.Publisher.Behaviors.WordBehavior',
         'Waka.Publisher.Contents.ContentTextes',
         'Waka.Publisher.Contents.ContentMediasTextes',
+        'Waka.Publisher.Contents.ContentLinkedPhoto',
 
     ];
 
@@ -49,10 +50,11 @@ class Documents extends Controller
 
     // public function relationExtendRefreshResults($field)
     // {
-    //     $blocs = \Waka\Publisher\Models\Document::find($this->params[0])->blocs;
+    //     trace_log('--relationExtendRefreshResults--');
+    //     $blocs = \Waka\Publisher\Models\Document::find($this->params[0])->blocs()->withDeferred($this->sessionKey)->get();
     //     foreach($blocs as $bloc) {
     //         trace_log($bloc->name);
-    //         trace_log(count($bloc->contents));
+    //         trace_log(count($bloc->contents()->withDeferred($this->sessionKey)->get()));
     //         if(count($bloc->contents)) {
     //             $bloc->delete_informs();
     //         } else {

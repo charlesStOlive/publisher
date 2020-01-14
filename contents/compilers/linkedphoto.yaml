@@ -1,0 +1,33 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    sector:
+        label: waka.publisher::lang.linkedphoto.sector
+        type: dropdown
+        options: listNestedSector
+    data:
+        type: nestedform
+        usePanelStyles: false
+        form:
+            fields:
+                image:
+                    label: waka.publisher::lang.contents.linkedphoto.image
+                    placeholder: waka.publisher::lang.contents.linkedphoto.image_placeholder
+                    type: dropdown
+                    options: listDataSourceMediaList
+                width:
+                    label: waka.publisher::lang.contents.linkedphoto.width
+                    default: 16.5
+                    span: auto
+                height:
+                    label: waka.publisher::lang.contents.linkedphoto.height
+                    default: 16.5
+                    span: auto
+
+        
+
+            
+
+

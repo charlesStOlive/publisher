@@ -12,11 +12,18 @@ fields:
         label: waka.publisher::lang.document.path
         type: mediafinder
         span: auto 
-    data_source:
+    data_source@create:
         label: waka.publisher::lang.document.data_source
         type: relation
         select: name
         span: auto 
+    data_source@update:
+        label: waka.publisher::lang.document.data_source
+        type: relation
+        select: name
+        span: auto
+        disabled: true
+
 
     # has_sectors_perso:
     #     label: waka.publisher::lang.document.has_sectors_perso

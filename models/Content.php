@@ -2,6 +2,7 @@
 
 use Model;
 use Flash;
+use Session;
 
 /**
  * Content Model
@@ -96,5 +97,13 @@ class Content extends Model
     }
     public function afterSave() {
         trace_log("after save content");
+    }
+
+    public function listDataSourceMediaList()
+    {
+        $blocId = Session::pull('manage_bloc_id_for_mediaList');
+        $dataSource = Bloc::find($blocId)->document->data_source;
+        return $dataSource->getImagesList($dataSource->test_id);
+
     }
 }

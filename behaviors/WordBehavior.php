@@ -8,6 +8,7 @@ use Waka\Publisher\Classes\WordProcessor;
 use Flash;
 use Lang;
 use Redirect;
+use Session;
 
 class WordBehavior extends ControllerBehavior
 {
@@ -19,45 +20,68 @@ class WordBehavior extends ControllerBehavior
         $this->wordBehaviorWidget = $this->createWordBehaviorWidget();
     }
 
+    public function onLoadWordBehaviorPopupForm()
+    {
+        $dataSource = post('model');
+        $dataSourceId = post('modelId');
+        //
+        $modelClassDecouped = explode('\\', $dataSource );
+        $modelClassName = array_pop($modelClassDecouped);
+        //
+        $options = Document::whereHas('data_source', function ($query) use($modelClassName) {
+            $query->where('model', '=', $modelClassName);
+        })->lists('name', 'id');
+        //
+        $this->vars['options'] = $options;
+        $this->vars['dataSourceId'] = $dataSourceId;
+        return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_popup.htm');
+        //return true;
+    }
+    public function onWordBehaviorPopupValidation()
+    {
+        $id = post('documentId');
+        $datasourceid = post('dataSourceId');
+        return Redirect::to('/backend/waka/publisher/documents/makeword/?id='.$id.'&source='.$datasourceid);
 
-     //ci dessous tous les calculs pour permettre l'import excel. 
+    }
     public function onLoadWordBehaviorForm()
     {
         $id = post('id');
-        //
-        $tags = $this->checkWord($id);  
-        //
-        
-        // $this->vars['modelId'] = $id;
-        // $this->vars['wordBehaviorWidget'] = $this->createWordBehaviorWidget();
-        // return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_my_form.htm');
-        //return true;
-        return Redirect::to('/backend/waka/publisher/documents/makeword/'.$id);
+        $wp = new WordProcessor($id);
+        $tags = $wp->checkTags();  
+        return Redirect::to('/backend/waka/publisher/documents/makeword/?id='.$id);
     }
-
-    public function makeword($id){
-        $tags = $this->checkWord($id);
-        $wc = new WordCreator($id);
-        return $wc->renderWord($tags);   
-    }
-
-    public function CheckWord($id){
-        $returnTag = WordProcessor::checkTags($id);
+    public function makeword(){
+        $id = post('id');
+        $dataSourceId = post('source');
         $model = Document::find($id);
-        if($model->has_informs('problem')) {
-            Flash::error('Le document à des erreurs');
-            return Redirect::refresh();
-        } else {
-            foreach($model->blocs as $bloc) {
-                if($bloc->has_informs('problem')) {
-                    Flash::error('Le document à des erreurs');
-                    return Redirect::refresh();
-                }
-            }
-
-        }
-        return $returnTag;
+        //
+        $wc = new WordCreator($id);
+        return $wc->renderWord($dataSourceId);   
     }
+    public function onLoadWordCheck() {
+        $id = post('id');
+        $wp = new WordProcessor($id);
+        return $wp->checkDocument();  
+    }
+
+    // public function CheckWord($id){
+    //     $returnTag = WordProcessor::checkTags($id);
+    //     $model = Document::find($id);
+    //     if($model->has_informs('problem')) {
+    //         Flash::error('Le document à des erreurs');
+    //         return Redirect::refresh();
+    //     } else {
+    //         foreach($model->blocs as $bloc) {
+    //             if($bloc->has_informs('problem')) {
+    //                 Flash::error('Le document à des erreurs');
+    //                 return Redirect::refresh();
+    //             }
+    //         }
+
+    //     }
+    //     return $returnTag;
+    // }
     public function createWordBehaviorWidget() {
 
         $config = $this->makeConfig('$/waka/publisher/models/document/fields_for_test.yaml');

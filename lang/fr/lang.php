@@ -46,7 +46,9 @@ return [
         'analyze' => "Log d'analyse des codes du fichier source",
         'has_sectors_perso' => 'Personaliser le contenu en fonction du secteur',
         'data_source' => ' Sources des données',
-        'data_source_placeholder' => 'Choisissez une source de données'
+        'data_source_placeholder' => 'Choisissez une source de données',
+        'download' => 'Télécharger un exemple',
+        'check' => 'Vérifier'
     ],
     'objtext' => [
         'data' => 'Paragraphes',
@@ -72,7 +74,23 @@ return [
             'field_not_existe' =>"Le champs n'existe pas",
             'id_not_exist' =>"L'id n'existe pas",
             'document_not_exist' =>" La source du document n'a pas été trouvé",
+            'errors' => "Ce document à des erreurs, veuillez les corriger.",
+            'success' => "Le systhème n'a pas trouvé d'erreurs. Pensez à verifier votre document après édition"
         ]
+    ],
+    'contents' => [
+        'linkedphoto' => [
+            'image' => "Choisissez une image",
+            'image_placeholder' => "--Choisissez une image--",
+            'width' => "Largeur",
+            'height' => "Hauteur",
+            'unit' => "Unité",
+
+        ]
+        
+
+
+
     ]
     
 ];

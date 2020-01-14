@@ -24,13 +24,13 @@
             data-load-indicator="Saving Document..." class="btn btn-primary">
             <?= e(trans('waka.utils::lang.global.save')) ?>
         </button>
-        <button type="button" data-handler="onLoadWordBehaviorForm" data-control="popup"
-            data-request-data="redirect:0, id:<?=$this->params[0]?>" class="btn btn-default">
-            <?= e(trans('waka.utils::lang.global.test')) ?>
+        <button type="button" data-request="onLoadWordCheck" data-request-data="id:<?=$this->params[0]?>"
+            data-load-indicator="Checking Document..." class="btn btn-default">
+            <?= e(trans('waka.publisher::lang.document.check')) ?>
         </button>
         <button type="button" data-request="onLoadWordBehaviorForm"
             data-request-data="redirect:0, id:<?=$this->params[0]?>" class="btn btn-default">
-            <?= e(trans('waka.utils::lang.global.test')) ?>
+            <?= e(trans('waka.publisher::lang.document.download')) ?>
         </button>
         <button type="button" data-request="onSave" data-request-data="close:1" data-hotkey="ctrl+enter, cmd+enter"
             data-load-indicator="Saving Document..." class="btn btn-default">

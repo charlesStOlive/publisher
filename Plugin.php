@@ -3,6 +3,8 @@
 use Backend;
 use Lang;
 use System\Classes\PluginBase;
+use Event;
+use View;
 
 /**
  * Publisher Plugin Information File
@@ -48,6 +50,26 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        Event::listen('backend.down.update', function($controller) {
+            if(get_class($controller) == 'Waka\Publisher\Controllers\Documents') return;
+            if(in_array('Waka.Publisher.Behaviors.WordBehavior', $controller->implement )) {
+                $data = [
+                    'model' => $modelClass = str_replace('\\', '\\\\', get_class($controller->formGetModel())),
+                    'modelId' => $controller->formGetModel()->id
+                ];
+                return View::make('waka.publisher::publishWord')->withData($data);;
+            }
+        });
+        Event::listen('popup.actions.line1', function($controller, $model, $id) {
+            if(get_class($controller) == 'Waka\Publisher\Controllers\Documents') return;
+            if(in_array('Waka.Publisher.Behaviors.WordBehavior', $controller->implement)) {
+                $data = [
+                    'model' => str_replace('\\', '\\\\', $model),
+                    'modelId' => $id
+                ];
+                return View::make('waka.publisher::publishWord')->withData($data);;
+            }
+        });
 
     }
 

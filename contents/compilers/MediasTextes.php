@@ -7,7 +7,7 @@ class MediasTextes
 {
 
 
-    public static function proceed($contents) {
+    public function proceed($contents, $dataSourceModel) {
         $datas= [];
         $index = 1;
         foreach($contents as $content ) {
