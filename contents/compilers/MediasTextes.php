@@ -16,9 +16,9 @@ class MediasTextes
                 $obj->value = $sub['value'];
                 $obj->image = [
                     'path' => self::getImage($sub['path']),
-                    'width' => '16cm',
-                    'height' => '7cm',
-                    'ratio' => true
+                    'width' => $sub['width'].'mm',
+                    'height' => $sub['height'].'mm',
+                    'ratio' => $sub['keep_ratio']
                 ];
                 array_push($datas, $obj);
                 if($index != count($contents)) {

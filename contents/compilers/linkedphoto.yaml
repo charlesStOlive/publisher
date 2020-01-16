@@ -19,12 +19,19 @@ fields:
                     options: listDataSourceMediaList
                 width:
                     label: waka.publisher::lang.contents.linkedphoto.width
-                    default: 16.5
+                    comment: waka.publisher::lang.contents.linkedphoto.width_explication
+                    default: 165
                     span: auto
                 height:
                     label: waka.publisher::lang.contents.linkedphoto.height
-                    default: 16.5
+                    default: 165
                     span: auto
+                keep_ratio: 
+                    label: waka.publisher::lang.contents.linkedphoto.keep_ratio
+                    default: 1
+                    type: checkbox
+
+
 
         
 

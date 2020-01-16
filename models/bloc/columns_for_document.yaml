@@ -23,6 +23,12 @@ columns:
         clickable: false
         searchable: false
         sortable: false
+        
+    contenu:
+        label: waka.publisher::lang.bloc.nb_content
+        relation: contents
+        useRelationCount: true
+
     name:
         label: waka.publisher::lang.bloc.name
         searchable: true

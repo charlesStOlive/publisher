@@ -21,6 +21,20 @@ fields:
                 path:
                     label: waka.publisher::lang.mediastextes.path
                     type: mediafinder
+                    mode: image
+                width:
+                    label: waka.publisher::lang.contents.linkedphoto.width
+                    comment: waka.publisher::lang.contents.linkedphoto.width_explication
+                    default: 165
+                    span: auto
+                height:
+                    label: waka.publisher::lang.contents.linkedphoto.height
+                    default: 165
+                    span: auto
+                keep_ratio: 
+                    label: waka.publisher::lang.contents.linkedphoto.keep_ratio
+                    default: 1
+                    type: checkbox
 
             
 

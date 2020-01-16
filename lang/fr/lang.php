@@ -18,6 +18,7 @@ return [
         'bloc_type' => 'Type de contenu',
         'code' => 'Code',
         'version' => 'Les versions',
+        'nb_content' => 'Variante'
     ],
     'bloc_name' => [
         'name' => 'Intitulé',
@@ -82,8 +83,10 @@ return [
         'linkedphoto' => [
             'image' => "Choisissez une image",
             'image_placeholder' => "--Choisissez une image--",
-            'width' => "Largeur",
-            'height' => "Hauteur",
+            'width' => "Largeur (mm)",
+            'height' => "Hauteur (mm) ",
+            'width_explication' => "165 mm est la largeur du contenu par défaut",
+            'keep_ratio'=> "Conserver le ration",
             'unit' => "Unité",
 
         ]

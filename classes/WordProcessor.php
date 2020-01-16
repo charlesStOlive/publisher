@@ -51,11 +51,8 @@ Class WordProcessor {
      * 
      */
     public function checkTags() {
-        trace_log("checkTags");
         $allTags = $this->filterTags($this->templateProcessor->getVariables());
-        //
         $create = $this->createBlocs($allTags['blocs']);
-        //
         return $allTags;
     }
     /**
@@ -66,6 +63,7 @@ Class WordProcessor {
         //tablaux de tags pour les blocs, les injections et les rows
         $blocs = [];
         $injections = [];
+        $imageKeys = [];
         $rows = [];
         $insideBlock = false; 
         foreach($tags as $tag) {
@@ -86,6 +84,7 @@ Class WordProcessor {
                 $this->recordInform('problem', Lang::get('waka.publisher::lang.word.processor.bad_format').' : '.$tag);
                 continue;
             } 
+            // trace_log($tag);
             $blocFormat = array_shift($parts);
             $blocType = array_shift($parts);
             $blocCode = implode( ".", $parts ); 
@@ -100,7 +99,7 @@ Class WordProcessor {
                 continue;
             } 
             if($blocFormat == 'imagekey') {
-                //
+                array_push($imageKeys,$tag);
                 continue;
             } 
             if(!$blocType || !$blocCode ) {
@@ -119,7 +118,7 @@ Class WordProcessor {
         return [
             'blocs' =>$blocs,
             'injections' =>$injections,
-            'imagekey' =>$injections
+            'imagekeys' =>$imageKeys
         ];
     }
     /**
@@ -143,24 +142,28 @@ Class WordProcessor {
                 $this->createBloc($bloc); 
             } 
         } else {
-            // Bloc existe ? 
+            // Bloc existe
+            $i = 1;
             foreach($blocs as $bloc) {
                 $blocModel =  $this->returnBlocModel($bloc);
                 if(!$blocModel) {
                     $this->createBloc($bloc);
                 } else {
+                    trace_log("Bloc existe ".$blocModel->code);
+                    $blocModel->sort_order = $this->increment++;;
                     $blocModel->ready = 'ok';
                     $blocModel->save();
                 }
+                $i++;
             } 
         }
     }
     public function createBloc($_bloc) {
         $bloc = new Bloc();
         $bloc->code = $_bloc->code;
-        
+        $bloc->sort_order = $this->increment++;
         $bloc->bloc_type_id =  $this->returnBlocTypeId($_bloc->type);
-        $bloc->name = $_bloc->code.' '.$this->increment++;
+        $bloc->name = $_bloc->code;
         $bloc->ready = 'ok';
         $this->document->blocs()->add($bloc);
     }

@@ -15,6 +15,8 @@ Class WordCreator extends WordProcessor {
     private $dataSourceModel;
     private $dataSourceId;
 
+    use \Waka\Cloudis\Classes\Traits\CloudisKey;
+
     
     public function prepareCreatorVars($dataSourceId) {
         $this->dataSourceModel = $this->linkModelSource($dataSourceId);
@@ -34,12 +36,18 @@ Class WordCreator extends WordProcessor {
         if($this->errors()) {
             Flash::error(Lang::get('waka.publisher::lang.word.processor.errors'));
             return Redirect::back();
-            
         }
         //Traitement des champs simples
         foreach($originalTags['injections'] as $injection) {
             $value = $this->apiInjections[$injection];
             $this->templateProcessor->setValue($injection, $value);
+        }
+        //Traitement des champs imagesKey
+        foreach($originalTags['imagekeys'] as $imagekey) {
+            $tag = $this->getWordImageKey($imagekey);
+            $key = $this->cleanWordKey($tag);
+            $url = $this->decryptKeyedImage($key, $this->dataSourceModel);
+            $this->templateProcessor->setImageValue($tag, $url);
         }
         //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
         foreach($this->apiBlocs as $key => $rows) {
@@ -63,8 +71,9 @@ Class WordCreator extends WordProcessor {
                 $i++;
             }
         }
-        $coin = $this->templateProcessor->saveAs('temp.docx');
-        return response()->download('temp.docx')->deleteFileAfterSend(true);
+        $name = str_slug($this->document->name.'-'.$this->dataSourceModel->name);
+        $coin = $this->templateProcessor->saveAs($name.'.docx');
+        return response()->download($name.'.docx')->deleteFileAfterSend(true);
     }
 
     public function getApiBlocs() {
@@ -88,17 +97,52 @@ Class WordCreator extends WordProcessor {
         return $tag;
     }
 
-    private function selectBloc($content, $sector=null) {
-        if(!$sector) return $content->whereNull('sector_id')->get();
-        return 'not know';
+    private function selectBloc($content, $sector) {
+        //trace_log("select bloc");
+        $arrayContent = $content->get()->toArray();
+        if(count($arrayContent)==1) {
+            //trace_log("Il n' y a pas de variante");
+            return $content->get();
+        }
+        if(count($arrayContent)>1) {
+            // trace_log("tratiement des variantes");
+            // trace_log("liste des contenus");
+            // trace_log($content->get()->toArray());
+            // trace_log('sector ID searched : '.$sector->id);
+            // trace_log("content get id");
+            // trace_log($content->get(['sector_id'])->toArray());
+            $tempSector = $sector->findParentIds($content->get(['sector_id']));
+            //trace_log('tempSector : '.$tempSector);
+            if(!$tempSector) {
+                return $content->whereNull('sector_id')->get();
+            } else {
+                //trace_log("on a trouvé un contenu liée");
+                return $content->where('sector_id', '=',  $tempSector->id)->get();
+            }
+        } else {
+            //trace_log("Error ? ");
+            return $content->get();
+        }
+        
     }
-
     private function launchCompiler($bloc) {
         $bloc_type = $bloc->bloc_type;
+        //
+        $sector = $this->getModelSectorAccess($this->dataSourceModel, $this->document->data_source->sector_access);
         // On garde uniquement le bon secteur;
-        $content = $this->selectBloc($bloc->contents());
+        $content = $this->selectBloc($bloc->contents(), $sector);
+        // trace_log("133 content");
+        // trace_log($content->toArray());
         //A partir du champs compiler de bloc_type on cherche la classe qui gère le bloc en question.
         $compiler = new $bloc_type->compiler;
         return $compiler->proceed($content, $this->dataSourceModel);        
+    }
+    private function getModelSectorAccess($model, $dotString) {
+        if(!$dotString) return $model;
+        $parts = explode('.', $dotString);
+        if(count($parts) == 1) return $model[$dotString];
+        if(count($parts) == 2) return $model[$parts[0]][$parts[1]];
+        if(count($parts) == 3) return $model[$parts[0]][$parts[1]][$parts[2]];
+        if(count($parts) == 4) return $model[$parts[0]][$parts[1]][$parts[2]][$parts[3]];
     }
 }

@@ -14,11 +14,13 @@ fields:
         span: auto 
     data_source@create:
         label: waka.publisher::lang.document.data_source
+        placeholder: waka.publisher::lang.document.data_source_placeholder
         type: relation
         select: name
         span: auto 
     data_source@update:
         label: waka.publisher::lang.document.data_source
+        placeholder: waka.publisher::lang.document.data_source_placeholder
         type: relation
         select: name
         span: auto
