@@ -67,7 +67,7 @@ class Plugin extends PluginBase
                     'model' => str_replace('\\', '\\\\', $model),
                     'modelId' => $id
                 ];
-                return View::make('waka.publisher::publishWord')->withData($data);;
+                return View::make('waka.publisher::publishWordContent')->withData($data);;
             }
         });
 

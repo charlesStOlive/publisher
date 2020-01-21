@@ -37,6 +37,24 @@ class WordBehavior extends ControllerBehavior
         return $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_popup.htm');
         //return true;
     }
+    public function onLoadWordBehaviorContentForm()
+    {
+        $dataSource = post('model');
+        $dataSourceId = post('modelId');
+        //
+        $modelClassDecouped = explode('\\', $dataSource );
+        $modelClassName = array_pop($modelClassDecouped);
+        //
+        $options = Document::whereHas('data_source', function ($query) use($modelClassName) {
+            $query->where('model', '=', $modelClassName);
+        })->lists('name', 'id');
+        //
+        $this->vars['options'] = $options;
+        $this->vars['dataSourceId'] = $dataSourceId;
+        return [
+            '#popupActionContent' => $this->makePartial('$/waka/publisher/behaviors/wordbehavior/_content.htm')
+        ];
+    }
     public function onWordBehaviorPopupValidation()
     {
         $id = post('documentId');
