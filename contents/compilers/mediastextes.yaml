@@ -4,22 +4,21 @@
 
 fields:
     sector:
-        label: waka.publisher::lang.mediastextes.sector
+        label: waka.publisher::lang.content.sector
         type: dropdown
         options: listNestedSector
     data: 
-        label: waka.publisher::lang.mediastextes.data
         type: repeater
         minItems: 1
-        prompt: waka.publisher::lang.mediastextes.data_prompt
+        prompt: waka.publisher::lang.contents.mediastextes.data_prompt
         form:
             fields:
                 value:
-                    label: waka.publisher::lang.mediastextes.value
+                    label: waka.publisher::lang.contents.mediastextes.value
                     type: textarea
                     size: small
                 path:
-                    label: waka.publisher::lang.mediastextes.path
+                    label: waka.publisher::lang.contents.mediastextes.path
                     type: mediafinder
                     mode: image
                 width:

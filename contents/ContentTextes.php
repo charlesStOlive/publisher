@@ -22,7 +22,9 @@ class ContentTextes extends ControllerBehavior
         $this->vars['orderId'] = post('manage_id');
         $this->vars['update'] = false;
         
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ]; 
     }
     //
     public function onLoadUpdateTextesForm()
@@ -42,7 +44,9 @@ class ContentTextes extends ControllerBehavior
         $this->vars['recordId'] = $recordId;
         $this->vars['update'] = true;
         //
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ];
     }
 
     protected function createContentTextesFormWidget($recordId=null)

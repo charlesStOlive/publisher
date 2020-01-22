@@ -4,7 +4,7 @@
 
 fields:
     sector:
-        label: waka.publisher::lang.linkedphoto.sector
+        label: waka.publisher::lang.content.sector
         type: dropdown
         options: listNestedSector
     data:

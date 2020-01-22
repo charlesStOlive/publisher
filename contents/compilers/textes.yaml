@@ -8,15 +8,14 @@ fields:
         type: dropdown
         options: listNestedSector
     data: 
-        label: waka.publisher::lang.objtext.data
         type: repeater
-        prompt: waka.publisher::lang.objtext.data_prompt
+        prompt: waka.publisher::lang.contents.textes.data_prompt
         form:
             fields:
                 value:
-                    label: waka.publisher::lang.objtext.value
+                    label: waka.publisher::lang.contents.textes.value
                     type: textarea
                     size: small
                 jump:
-                    label: waka.publisher::lang.objtext.jump
+                    label: waka.publisher::lang.contents.textes.jump
                     type: checkbox

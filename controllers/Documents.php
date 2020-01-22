@@ -122,6 +122,13 @@ class Documents extends Controller
         ];
     }
 
+    public function onCancelContent() {
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_empty.htm')
+        ];
+
+    }
+
     public function getBlocModel()
     {
         $manageId = post('manage_id');

@@ -21,8 +21,10 @@ class ContentMediasTextes extends ControllerBehavior
         $this->vars['behaviorWidget'] = $this->contentMediasTextesFormWidget;
         $this->vars['orderId'] = post('manage_id');
         $this->vars['update'] = false;
-        
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ];
     }
     //
     public function onLoadUpdateMediasTextesForm()
@@ -42,7 +44,9 @@ class ContentMediasTextes extends ControllerBehavior
         $this->vars['recordId'] = $recordId;
         $this->vars['update'] = true;
         //
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ];
     }
 
     protected function createContentMediasTextesFormWidget($recordId=null)

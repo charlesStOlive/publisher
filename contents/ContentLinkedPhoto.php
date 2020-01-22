@@ -24,7 +24,9 @@ class ContentLinkedPhoto extends ControllerBehavior
         Session::put('manage_bloc_id_for_mediaList', post('manage_id'));
         $this->vars['update'] = false;
         
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ];
     }
     //
     public function onLoadUpdateLinkedPhotoForm()
@@ -45,7 +47,9 @@ class ContentLinkedPhoto extends ControllerBehavior
         $this->vars['recordId'] = $recordId;
         $this->vars['update'] = true;
         //
-        return $this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm');
+        return [
+            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_create_form.htm')
+        ];
     }
 
     protected function createContentLinkedPhotoFormWidget($recordId=null)

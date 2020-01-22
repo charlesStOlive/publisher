@@ -64,8 +64,11 @@ return [
         'versions' => 'Les versions',
         'add_version' => 'Nouvelle version',
         'add_base' => 'Créer le contenu de base',
-        'create_content' => 'Créer votre contenu',
+        'create_content' => "Création d'une version : ",
+        'update_content' => "Mise à jour d'une version ",
         'version_for_sector' => 'Version pour le secteur : ',
+        'sector' => 'Secteur de cette version',
+        'reminder_content' => "Choisisir ou créer une version dans le tableau du dessus. Mettre à jour avant de quitter",
     ],
     'word' => [
         'processor' => [
@@ -88,7 +91,17 @@ return [
             'width_explication' => "165 mm est la largeur du contenu par défaut",
             'keep_ratio'=> "Conserver le ration",
             'unit' => "Unité",
-
+        ],
+        'mediastextes' => [
+            'data_prompt' => "Créer un pararaphe texte + photo",
+            'value' => "Texte",
+            'path' => "Choisir une image",
+            'Jump' => "Ajouter un second saut de paragraphe",
+        ],
+        'textes' => [
+            'data_prompt' => "Créer un pararaphe de texte",
+            'value' => "Texte",
+            'Jump' => "Ajouter un second saut de paragraphe",
         ]
         
 

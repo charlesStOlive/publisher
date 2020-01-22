@@ -3,20 +3,41 @@
 # ===================================
 
 fields:
-    name:
+    name@create:
         label: waka.publisher::lang.bloc.name
         comment: waka.publisher::lang.bloc.name_ex
         span: auto
-    code:
+    code@create:
         label: waka.utils::lang.global.code
         preset: _name
         span: auto
-    bloc_type:
+    bloc_type@create:
         label: waka.publisher::lang.bloc.bloc_type
         type: relation
         default: 2
-    contents@update:
-        label: waka.publisher::lang.bloc.version
-        type: partial
-        path: field_contents
-        dependsOn: bloc_type
+
+tabs:
+    defaultTab: content
+    fields:
+        contents@update:
+            label: waka.publisher::lang.bloc.version
+            type: partial
+            path: field_contents
+            tab: content
+            dependsOn: bloc_type
+        name@update:
+            label: waka.publisher::lang.bloc.name
+            comment: waka.publisher::lang.bloc.name_ex
+            span: auto
+            tab: bloc info
+        code@update:
+            label: waka.utils::lang.global.code
+            preset: _name
+            span: auto
+            tab: bloc info
+        bloc_type@update:
+            label: waka.publisher::lang.bloc.bloc_type
+            type: relation
+            default: 2
+            tab: bloc info
+        

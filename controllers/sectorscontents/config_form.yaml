@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Sectors Content
+
+# Model Form Field configuration
+form: $/waka/publisher/models/sectorscontent/fields.yaml
+
+# Model Class name
+modelClass: Waka\Publisher\Models\SectorsContent
+
+# Default redirect location
+defaultRedirect: waka/publisher/sectorscontents
+
+# Create page
+create:
+    title: Create Sectors Content
+    redirect: waka/publisher/sectorscontents/update/:id
+    redirectClose: waka/publisher/sectorscontents
+
+# Update page
+update:
+    title: Edit Sectors Content
+    redirect: waka/publisher/sectorscontents
+    redirectClose: waka/publisher/sectorscontents
+
+# Preview page
+preview:
+    title: Preview Sectors Content

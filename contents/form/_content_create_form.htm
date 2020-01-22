@@ -2,31 +2,39 @@
 
 <input type="hidden" name="manage_id" value="<?= $orderId ?>" />
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="popup">&times;</button>
-    <h4 class="modal-title"><?=e(trans('waka.publisher::lang.content.create_content'))?></h4>
-</div>
+<div class="report-widget">
 
-<div class="modal-body">
+    <h5>
+        <?php if($update) { ?>
+        <?=e(trans('waka.publisher::lang.content.update_content'))?>
+        <?php } else { ?>
+        <?=e(trans('waka.publisher::lang.content.create_content'))?>
+        <?php } ?>
+    </h5>
+
+
+
     <?= $behaviorWidget->render() ?>
-</div>
 
-<div class="modal-footer">
+
+
     <?php if($update) { ?>
-    <button type="submit" data-request="onUpdateContent" data-request-data="record_id: '<?= $recordId ?>'" data-hotkey="
-        ctrl+s, cmd+s" data-popup-load-indicator class="btn btn-primary">
+    <button data-stripe-load-indicator type="submit" data-request="onUpdateContent"
+        data-request-data="record_id: '<?= $recordId ?>'" class="btn btn-primary">
         <?=e(trans('waka.utils::lang.global.update'))?>
     </button>
     <?php } else { ?>
-    <button type="submit" data-request="onCreateItem" data-request-data="redirect:0" data-hotkey="ctrl+s, cmd+s"
-        data-popup-load-indicator class="btn btn-primary">
+    <button data-stripe-load-indicator type="submit" data-request="onCreateItem" data-request-data="redirect:0"
+        data-hotkey="ctrl+s, cmd+s" class="btn btn-primary">
         <?=e(trans('waka.utils::lang.global.create'))?>
     </button>
-
     <?php } ?>
-    <button type="button" class="btn btn-default" data-dismiss="popup">
+    <button data-stripe-load-indicator type="submit" data-request="onCancelContent" data-request-data="redirect:0"
+        data-hotkey="ctrl+s, cmd+s" class="btn btn-primary">
         <?=e(trans('waka.utils::lang.global.cancel'))?>
     </button>
+
+
 </div>
 
 <?= Form::close() ?>
