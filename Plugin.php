@@ -12,6 +12,12 @@ use View;
 class Plugin extends PluginBase
 {
     /**
+     * @var array Plugin dependencies
+     */
+    public $require = ['Waka.Utils'];
+
+
+    /**
      * Returns information about this plugin.
      *
      * @return array
