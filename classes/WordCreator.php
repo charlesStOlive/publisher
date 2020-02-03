@@ -20,7 +20,8 @@ Class WordCreator extends WordProcessor {
     
     public function prepareCreatorVars($dataSourceId) {
         $this->dataSourceModel = $this->linkModelSource($dataSourceId);
-        $this->apiBlocs = $this->getApiBlocs(); 
+        $this->keyBlocs = $this->getKeyGroups('bloc'); 
+        $this->keyRows = $this->getKeyGroups('row'); 
         $this->apiInjections = $this->getApiInjections();
     }
     private function linkModelSource($dataSourceId) {
@@ -33,10 +34,10 @@ Class WordCreator extends WordProcessor {
     public function renderWord($dataSourceId) {
         $this->prepareCreatorVars($dataSourceId);
         $originalTags = $this->checkTags();
-        if($this->errors()) {
-            Flash::error(Lang::get('waka.publisher::lang.word.processor.errors'));
-            return Redirect::back();
-        }
+        // if($this->errors()) {
+        //     Flash::error(Lang::get('waka.publisher::lang.word.processor.errors'));
+        //     return Redirect::back();
+        // }
         //Traitement des champs simples
         foreach($originalTags['injections'] as $injection) {
             $value = $this->apiInjections[$injection];
@@ -49,8 +50,30 @@ Class WordCreator extends WordProcessor {
             $url = $this->decryptKeyedImage($key, $this->dataSourceModel);
             $this->templateProcessor->setImageValue($tag, $url);
         }
-        //Traitement des blocs | je n'utilise pas les tags d'origine mais les miens.
-        foreach($this->apiBlocs as $key => $rows) {
+        // trace_log("ok");
+        // $data = array(
+        //     array(
+        //         'row.name.userId'        => 1,
+        //         'userFirstName' => 'James',
+        //         'userName'      => 'Taylor',
+        //         'userPhone'     => '+1 428 889 773',
+        //     ),
+        //     array(
+        //         'row.name.userId'        => 2,
+        //         'userFirstName' => 'Robert',
+        //         'userName'      => 'Bell',
+        //         'userPhone'     => '+1 428 889 774',
+        //     ),
+        //     array(
+        //         'row.name.userId'        => 3,
+        //         'userFirstName' => 'Michael',
+        //         'userName'      => 'Ray',
+        //         'userPhone'     => '+1 428 889 775',
+        //     ),
+        // );
+        //$this->templateProcessor->cloneRowAndSetValues('row.name.userId', $data);
+        //Traitement des BLOCS | je n'utilise pas les tags d'origine mais les miens.
+        foreach($this->keyBlocs as $key => $rows) {
             $count = count($rows);
             //trace_log("foreach---------------------------".$key.' count '.$count);
             $this->templateProcessor->cloneBlock($key, $count, true, true);
@@ -71,15 +94,42 @@ Class WordCreator extends WordProcessor {
                 $i++;
             }
         }
+        trace_log($this->keyRows);
+        //Traitement des ROWS | je n'utilise pas les tags d'origine mais les miens.
+        foreach($this->keyRows as $key => $rows) {
+            $count = count($rows);
+            trace_log("foreach---------------------------".$key.' count '.$count);
+            $this->templateProcessor->cloneRow($key, $count);
+            $i=1;
+            foreach($rows as $row) {
+                trace_log($row);
+                trace_log("--------foreachkey------------------------");
+                foreach($row as $cle => $data) {
+                    trace_log($cle.'#'.$i);
+                    trace_log($data);
+                    if($cle == 'image') {
+                        $this->templateProcessor->setImageValue($cle.'#'.$i, $data);
+                    } else {
+                        $this->templateProcessor->setValue($cle.'#'.$i, $data);
+                    }
+                    
+                }  
+                $i++;
+            }
+        }
         $name = str_slug($this->document->name.'-'.$this->dataSourceModel->name);
         $coin = $this->templateProcessor->saveAs($name.'.docx');
         return response()->download($name.'.docx')->deleteFileAfterSend(true);
     }
 
-    public function getApiBlocs() {
+    public function getKeyGroups($type = null) {
         $doc = $this->document;
+        //On filtre les blocs par type;
+        $blocs = $doc->blocs()->whereHas('bloc_type', function ($query) use($type) {
+            $query->where('type', $type);
+        })->get();
         $compiledBlocs = [];
-        foreach($doc->blocs as $bloc) {
+        foreach($blocs as $bloc) {
             $tag = $this->rebuildTag($bloc);
             $datas = $this->launchCompiler($bloc);
             $compiledBlocs[$tag] = $datas;

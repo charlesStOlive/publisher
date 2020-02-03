@@ -10,7 +10,7 @@ fields:
         type: radio
         options:
             bloc: waka.publisher::lang.bloc_type.type_bloc
-            raw: waka.publisher::lang.bloc_type.type_raw
+            row: waka.publisher::lang.bloc_type.type_row
     code:
         label: waka.publisher::lang.bloc_type.code
     compiler:

@@ -1,2 +1,0 @@
-INSERT INTO `waka_publisher_documents` (`id`, `name`, `slug`, `path`, `data_source_id`, `sort_order`, `deleted_at`, `created_at`, `updated_at`) VALUES (1, 'presentation', 'presentation', '/template.docx', 1, 1, NULL, '2019-12-17 11:14:14', '2019-12-17 11:14:14');
-INSERT INTO `waka_publisher_documents` (`id`, `name`, `slug`, `path`, `data_source_id`, `sort_order`, `deleted_at`, `created_at`, `updated_at`) VALUES (2, 'test', 'test', '/template_textes_photos.docx', 1, 2, NULL, '2019-12-17 14:59:38', '2019-12-17 14:59:38');

@@ -3,8 +3,9 @@
 //use Excel;
 use Seeder;
 use DB;
+use Storage;
 use Waka\Publisher\Models\BlocType;
-use System\Models\File;;
+use System\Models\File;
 // use Waka\Crsm\Classes\CountryImport;
 
 
@@ -13,20 +14,7 @@ class SeedTables extends Seeder
 {
     public function run()
     {
-        //Excel::import(new CountryImport, plugins_path('waka/crsm/updates/excels/country.xlsx'));
-        // $sector = Sector::create([
-        //     'name'                 => 'Défaut',
-        //     'slug'                 => 'defaut'
-        // ]);
-        // $type = Type::create([
-        //     'name'                 => 'Prospect',
-        //     'slug'                 => 'prospet'
-        // ]);
-        // $type = Type::create([
-        //     'name'                 => 'Client',
-        //     'slug'                 => 'client'
-        // ]);
-        //
+        // Creation des répoertoires publisher
         $blocType = BlocType::create([
             'name'                 => 'Bloc de texte',
             'code'                 => 'textes',
@@ -72,18 +60,7 @@ class SeedTables extends Seeder
         $explication->data = plugins_path('waka\publisher\updates\exemples\linked_image.docx');
         $blocType->src_explication = $explication;
         $blocType->save();
-        // $sql = plugins_path('waka\publisher\updates\sql\waka_publisher_bloc_types.sql');
-        // DB::unprepared(file_get_contents($sql));
 
-        // $sql = plugins_path('waka\publisher\updates\sql\waka_publisher_contents.sql');
-        // DB::unprepared(file_get_contents($sql));
-
-        // $sql = plugins_path('waka\publisher\updates\sql\waka_publisher_documents.sql');
-        // DB::unprepared(file_get_contents($sql));
-
-        // $sql = plugins_path('waka\publisher\updates\sql\waka_publisher_blocs.sql');
-        // DB::unprepared(file_get_contents($sql));
-
-        
+        $this->call('Waka\Crsm\Updates\Seeders\SeedProjectsMissions');
     }
 }

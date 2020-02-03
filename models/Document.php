@@ -1,6 +1,11 @@
 <?php namespace Waka\Publisher\Models;
 
 use Model;
+use Db;
+use Excel;
+use BackendAuth;
+use Waka\Crsm\Models\Client;
+use System\Models\File;
 use \Waka\Publisher\Classes\WordProcessor;
 
 /**
@@ -75,27 +80,26 @@ class Document extends Model
      */
     public $hasOne = [];
     public $hasMany = [
-        'blocs' => ['Waka\Publisher\Models\Bloc']
+        'blocs' => ['Waka\Publisher\Models\Bloc'],
     ];
     public $belongsTo = [
-        'data_source' => ['Waka\Utils\Models\DataSource']
+        'data_source' => ['Waka\Utils\Models\DataSource'],
     ];
     public $belongsToMany = [];
     public $morphTo = [];
     public $morphOne = [];
     public $morphMany = [
-        'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable']
+        'informs' => ['Waka\Informer\Models\Inform', 'name' => 'informeable'],
     ];
     public $attachOne = [];
     public $attachMany = [];
 
     public function afterCreate()
     {
-        $wp = new WordProcessor($this->id);
-        $wp->checkTags();
-    }
-    public function beforeSave()
-    {
+        if(BackendAuth::getUser()) {
+            $wp = new WordProcessor($this->id);
+            $wp->checkTags();
+        }
         
     }
     //

@@ -32,7 +32,7 @@ return [
         'name' => 'Intitulé',
         'type' => 'Type de bloc',
         'type_bloc' => "Le contenu sera de type : 'bloc'",
-        'type_raw' => "Le contenu sera de type : 'raw'",
+        'type_row' => "Le contenu sera de type : 'row'",
         'code' => "Code d'itentification du bloc",
         'model' => 'Model associé',
         'ajax_method' => 'Méthode Ajax',
