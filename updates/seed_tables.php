@@ -25,7 +25,7 @@ class SeedTables extends Seeder
         ]);
         $explication = new File;
         $explication->is_public = true;
-        $explication->data = plugins_path('waka\publisher\updates\exemples\textes.docx');
+        $explication->data = plugins_path('waka/publisher/updates/exemples/textes.docx');
         $blocType->src_explication = $explication;
         $blocType->save();
         //
@@ -37,11 +37,11 @@ class SeedTables extends Seeder
         ]);
         $file = new File;
         $file->is_public = true;
-        $file->data = plugins_path('waka\publisher\updates\src\images\icones_editor_image_media.png');
+        $file->data = plugins_path('waka/publisher/updates/src/images/icones_editor_image_media.png');
         $blocType->icon_png = $file;
         $explication = new File;
         $explication->is_public = true;
-        $explication->data = plugins_path('waka\publisher\updates\exemples\media_textes.docx');
+        $explication->data = plugins_path('waka/publisher/updates/exemples/media_textes.docx');
         $blocType->src_explication = $explication;
         $blocType->save();
         //
@@ -53,14 +53,12 @@ class SeedTables extends Seeder
         ]);
         $file = new File;
         $file->is_public = true;
-        $file->data = plugins_path('waka\publisher\updates\src\images\icones_editor_image_model.png');
+        $file->data = plugins_path('waka/publisher/updates/src/images/icones_editor_image_model.png');
         $blocType->icon_png = $file;
         $explication = new File;
         $explication->is_public = true;
-        $explication->data = plugins_path('waka\publisher\updates\exemples\linked_image.docx');
+        $explication->data = plugins_path('waka/publisher/updates/exemples/linked_image.docx');
         $blocType->src_explication = $explication;
         $blocType->save();
-
-        $this->call('Waka\Crsm\Updates\Seeders\SeedProjectsMissions');
     }
 }
