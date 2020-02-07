@@ -87,16 +87,13 @@ class Content extends Model
 
     public function filterFields($fields, $context = null)
     {
-        trace_log('context : '. $context);
+       //trace_log('context : '. $context);
         if (($context == 'createBase') || ($context == 'updateBase')) {
             $fields->sector->hidden = true;
         } 
         if (($context == 'createVersion') || ($context == 'updateVersion')) {
             $fields->sector->hidden = false;
         }
-    }
-    public function afterSave() {
-        trace_log("after save content");
     }
 
     public function listDataSourceMediaList()

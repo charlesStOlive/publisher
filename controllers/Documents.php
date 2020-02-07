@@ -44,7 +44,7 @@ class Documents extends Controller
 
     public function onTestList() {
         $model = \Waka\Publisher\Models\Document::find($this->params[0]);
-        trace_log($model->data_source->listApi());
+       //trace_log($model->data_source->listApi());
     }
 
 

@@ -86,6 +86,7 @@ Class WordProcessor {
             } 
             // trace_log($tag);
             $blocFormat = array_shift($parts);
+            trace_log("blocformat : ".$blocFormat);
             $blocType = array_shift($parts);
             $blocCode = implode( ".", $parts ); 
             //
@@ -110,8 +111,12 @@ Class WordProcessor {
                 $this->recordInform('warning', Lang::get('waka.publisher::lang.word.processor.type_not_exist').' : '.$tag );
                 continue;
             }
-            // on commence un bloc
-            $insideBlock = true;
+            if($blocFormat == 'bloc') {
+                // on commence un bloc
+                $insideBlock = true;
+            }
+            
+           
             $obj = (object)['format' => $blocFormat, 'type' => $blocType, 'code' => $blocCode ];
             array_push($blocs,$obj);
         }
@@ -149,7 +154,6 @@ Class WordProcessor {
                 if(!$blocModel) {
                     $this->createBloc($bloc);
                 } else {
-                    trace_log("Bloc existe ".$blocModel->code);
                     $blocModel->sort_order = $this->increment++;;
                     $blocModel->ready = 'ok';
                     $blocModel->save();

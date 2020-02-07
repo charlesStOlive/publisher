@@ -43,14 +43,15 @@ Class WordCreator extends WordProcessor {
             $value = $this->apiInjections[$injection];
             $this->templateProcessor->setValue($injection, $value);
         }
-        //Traitement des champs imagesKey
+        trace_log("image Key ");
+        trace_log($originalTags['imagekeys']);
         foreach($originalTags['imagekeys'] as $imagekey) {
             $tag = $this->getWordImageKey($imagekey);
             $key = $this->cleanWordKey($tag);
             $url = $this->decryptKeyedImage($key, $this->dataSourceModel);
             $this->templateProcessor->setImageValue($tag, $url);
         }
-        // trace_log("ok");
+        //trace_log("ok");
         // $data = array(
         //     array(
         //         'row.name.userId'        => 1,
@@ -75,16 +76,16 @@ Class WordCreator extends WordProcessor {
         //Traitement des BLOCS | je n'utilise pas les tags d'origine mais les miens.
         foreach($this->keyBlocs as $key => $rows) {
             $count = count($rows);
-            //trace_log("foreach---------------------------".$key.' count '.$count);
+            trace_log("foreach---------------------------".$key.' count '.$count);
             $this->templateProcessor->cloneBlock($key, $count, true, true);
             $i=1;
             foreach($rows as $row) {
-                // trace_log($row);
+                // //trace_log($row);
                 //trace_log("--------foreachkey------------------------");
                 foreach($row as $cle => $data) {
-                    // trace_log($cle.'#'.$i);
-                    // trace_log($data);
-                    if($cle == 'image') {
+                    trace_log($cle.'#'.$i);
+                    trace_log($data);
+                    if(starts_with($cle, 'image')) {
                         $this->templateProcessor->setImageValue($cle.'#'.$i, $data, 1);
                     } else {
                         $this->templateProcessor->setValue($cle.'#'.$i, $data, 1);
@@ -94,22 +95,27 @@ Class WordCreator extends WordProcessor {
                 $i++;
             }
         }
-        trace_log($this->keyRows);
+        //trace_log($this->keyRows);
         //Traitement des ROWS | je n'utilise pas les tags d'origine mais les miens.
         foreach($this->keyRows as $key => $rows) {
             $count = count($rows);
             trace_log("foreach---------------------------".$key.' count '.$count);
             $this->templateProcessor->cloneRow($key, $count);
+            trace_log('all tags-------***');
+            trace_log($this->templateProcessor->getVariables());
+            trace_log('end all tags-------');
             $i=1;
             foreach($rows as $row) {
-                trace_log($row);
+                //trace_log($row);
                 trace_log("--------foreachkey------------------------");
                 foreach($row as $cle => $data) {
                     trace_log($cle.'#'.$i);
                     trace_log($data);
-                    if($cle == 'image') {
+                    if(starts_with($cle, 'row.image')) {
+                        //trace_log("c'est une image");
                         $this->templateProcessor->setImageValue($cle.'#'.$i, $data);
                     } else {
+                        //trace_log("c'est PAS img");
                         $this->templateProcessor->setValue($cle.'#'.$i, $data);
                     }
                     
@@ -155,12 +161,12 @@ Class WordCreator extends WordProcessor {
             return $content->get();
         }
         if(count($arrayContent)>1) {
-            // trace_log("tratiement des variantes");
-            // trace_log("liste des contenus");
-            // trace_log($content->get()->toArray());
-            // trace_log('sector ID searched : '.$sector->id);
-            // trace_log("content get id");
-            // trace_log($content->get(['sector_id'])->toArray());
+            //trace_log("tratiement des variantes");
+            //trace_log("liste des contenus");
+            //trace_log($content->get()->toArray());
+            //trace_log('sector ID searched : '.$sector->id);
+            //trace_log("content get id");
+            //trace_log($content->get(['sector_id'])->toArray());
             $tempSector = $sector->findParentIds($content->get(['sector_id']));
             //trace_log('tempSector : '.$tempSector);
             if(!$tempSector) {
@@ -181,8 +187,8 @@ Class WordCreator extends WordProcessor {
         $sector = $this->getModelSectorAccess($this->dataSourceModel, $this->document->data_source->sector_access);
         // On garde uniquement le bon secteur;
         $content = $this->selectBloc($bloc->contents(), $sector);
-        // trace_log("133 content");
-        // trace_log($content->toArray());
+        //trace_log("133 content");
+        //trace_log($content->toArray());
         //A partir du champs compiler de bloc_type on cherche la classe qui gère le bloc en question.
         $compiler = new $bloc_type->compiler;
         return $compiler->proceed($content, $this->dataSourceModel);        
