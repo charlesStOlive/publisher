@@ -3,8 +3,6 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
-use Yaml;
-use File;
 
 /**
  * Documents Back-end Controller
@@ -21,6 +19,7 @@ class Documents extends Controller
         'Waka.Publisher.Contents.ContentTextes',
         'Waka.Publisher.Contents.ContentMediasTextes',
         'Waka.Publisher.Contents.ContentLinkedPhoto',
+        'Waka.Publisher.Contents.ContentStaticConfig',
 
     ];
 
@@ -39,14 +38,14 @@ class Documents extends Controller
         //BackendMenu::setContext('Waka.Publisher', 'publisher', 'side-menu-documents');
         BackendMenu::setContext('October.System', 'system', 'settings');
         SettingsManager::setContext('Waka.Publisher', 'documents');
-        
+
     }
 
-    public function onTestList() {
+    public function onTestList()
+    {
         $model = \Waka\Publisher\Models\Document::find($this->params[0]);
-       //trace_log($model->data_source->listApi());
+        //trace_log($model->data_source->listApi());
     }
-
 
     // public function relationExtendRefreshResults($field)
     // {
@@ -60,14 +59,13 @@ class Documents extends Controller
     //         } else {
     //         }
     //     }
-    // } 
-    
+    // }
 
     public function onCreateItem()
     {
         $bloc = $this->getBlocModel();
 
-        $data = post($bloc->bloc_type->code.'Form');
+        $data = post($bloc->bloc_type->code . 'Form');
         $sk = post('_session_key');
         $bloc->delete_informs();
 
@@ -85,7 +83,7 @@ class Documents extends Controller
         $bloc = $this->getBlocModel();
 
         $recordId = post('record_id');
-        $data = post($bloc->bloc_type->code.'Form');
+        $data = post($bloc->bloc_type->code . 'Form');
         $sk = post('_session_key');
 
         $model = \Waka\Publisher\Models\Content::find($recordId);
@@ -94,8 +92,6 @@ class Documents extends Controller
 
         return $this->refreshOrderItemList($sk);
     }
-
-    
 
     public function onDeleteItem()
     {
@@ -118,13 +114,14 @@ class Documents extends Controller
         $this->vars['contents'] = $contents;
         $this->vars['bloc_type'] = $bloc->bloc_type;
         return [
-            '#contentList' => $this->makePartial('content_list')
+            '#contentList' => $this->makePartial('content_list'),
         ];
     }
 
-    public function onCancelContent() {
+    public function onCancelContent()
+    {
         return [
-            '#popupPublisherContent' =>$this->makePartial('$/waka/publisher/contents/form/_content_empty.htm')
+            '#popupPublisherContent' => $this->makePartial('$/waka/publisher/contents/form/_content_empty.htm'),
         ];
 
     }
@@ -132,16 +129,14 @@ class Documents extends Controller
     public function getBlocModel()
     {
         $manageId = post('manage_id');
-        
 
         $bloc = $manageId
-            ? \Waka\Publisher\Models\Bloc::find($manageId)
-            : new \Waka\Publisher\Models\Bloc;
+        ? \Waka\Publisher\Models\Bloc::find($manageId)
+        : new \Waka\Publisher\Models\Bloc;
 
         return $bloc;
     }
 
-    
     // public function getContentContext($recordId=null)
     // {
     //     $model = $this->getBlocModel();
